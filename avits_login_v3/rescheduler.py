@@ -1,10 +1,12 @@
-# rescheduler.py – with debug logs and robust recovery
+# rescheduler.py – BEFORE range scans all months with short timeout, stable_time=0.5
 import logging
 import time
 from typing import Dict, Any, Optional, List, Tuple
-from datetime import datetime, timedelta
-from selenium.common.exceptions import WebDriverException
+from datetime import datetime
+from selenium.common.exceptions import WebDriverException, TimeoutException
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from .session_manager import SessionManager
 from .reschedule_navigator import RescheduleNavigator
 from .calendar_manager import CalendarManager
@@ -16,6 +18,11 @@ from .driver_manager import init_driver
 from .config import load_config
 
 logger = logging.getLogger(__name__)
+
+# ---- TIMING CONSTANTS ----
+STABILITY_TIMEOUT = 1.5      # seconds
+STABLE_TIME = 0.4            # seconds
+# -------------------------
 
 class Rescheduler:
     def __init__(self, session_manager: SessionManager, driver, config: Dict[str, Any]):
@@ -59,7 +66,7 @@ class Rescheduler:
     def _run_cycle(self) -> Dict[str, Any]:
         print(f"\n🚀 Starting rescheduler for {self.location}")
         print(f"📅 Date range: {self.date_range.get('from', 'N/A')} → {self.date_range.get('to', 'N/A')}")
-        print(f"⏱️  Poll interval: {self.poll_interval}s")
+        print(f"⏱️  Poll interval (fallback timeout): {self.poll_interval}s")
         print(f"🔄 Relogin attempts: {self.relogin_attempts}/{self.max_relogins}")
 
         target_months = self._build_month_list(self.date_range)
@@ -89,7 +96,14 @@ class Rescheduler:
         if not self.navigator.select_location(self.location):
             return {"success": False, "error": f"Could not select location: {self.location}"}
         print(f"✅ Selected location: {self.location}")
-        time.sleep(0.3)
+
+        # ---- Initial stability ----
+        print("[~] Waiting for initial calendar stability...")
+        stable = self.calendar.wait_for_calendar_stable(timeout=STABILITY_TIMEOUT, stable_time=STABLE_TIME)
+        if stable:
+            print("[~] Initial calendar stable")
+        else:
+            print("[~] Initial stability timeout, proceeding anyway")
 
         polls = 0
         while polls < self.max_polls:
@@ -97,7 +111,7 @@ class Rescheduler:
             remaining = self.session.get_remaining_time()
             print(f"\n   Poll {polls}/{self.max_polls} (Session: {remaining/60:.1f} min remaining)")
 
-            # ---- DEBUG: CHECK LOGOUT ----
+            # ---- CHECK LOGOUT ----
             if self.session.is_expired():
                 return {"success": False, "error": "Session expired"}
             if self._is_logged_out():
@@ -108,28 +122,18 @@ class Rescheduler:
             except:
                 return {"success": False, "error": "Browser unavailable"}
 
-            # ---- DEBUG: GET CURRENT MONTH ----
-            print("   [DEBUG] Getting current month/year...")
+            # ---- GET CURRENT MONTH ----
             current = self.calendar.navigator.get_current_month_year()
-            print(f"   [DEBUG] current = {current}")
-
             if current is None:
-                print("   [DEBUG] current is None – checking multi-year view...")
-                if self.calendar.navigator._is_multi_year_view():
-                    print("   [DEBUG] Multi-year view detected – closing it")
-                    self.calendar.navigator._close_multi_year_view()
-                    current = self.calendar.navigator.get_current_month_year()
-                    print(f"   [DEBUG] After closing multi-year view: current = {current}")
-                if current is None:
-                    print("   ⚠️ Could not determine current month, refreshing...")
-                    self.calendar.refresh_calendar(self.location)
-                    time.sleep(self.poll_interval)
-                    continue
+                print("   ⚠️ Could not determine current month, refreshing...")
+                self.calendar.refresh_calendar(self.location)
+                self.calendar.wait_for_calendar_stable(timeout=STABILITY_TIMEOUT, stable_time=STABLE_TIME)
+                continue
 
             cur_month, cur_year = current
             print(f"   📍 Current month/year: {cur_month}/{cur_year}")
 
-            # ---- DEBUG: PARSE DATE RANGE ----
+            # ---- PARSE DATE RANGE ----
             try:
                 start_dt = datetime.strptime(self.date_range["from"], "%Y-%m-%d")
                 end_dt = datetime.strptime(self.date_range["to"], "%Y-%m-%d")
@@ -137,36 +141,89 @@ class Rescheduler:
                 print(f"   ❌ Invalid date range: {e}")
                 return {"success": False, "error": "Invalid date range"}
 
-            current_dt = datetime(cur_year, cur_month, 1)
-            print(f"   [DEBUG] current_dt={current_dt}, end_dt={end_dt}")
+            start_year, start_month = start_dt.year, start_dt.month
+            end_year, end_month = end_dt.year, end_dt.month
 
-            # ---- EARLY CHECK: AFTER TARGET RANGE ----
-            if current_dt > end_dt:
-                print("   🔄 Current month is AFTER target range – refreshing...")
-                self.calendar.refresh_calendar(self.location)
-                time.sleep(self.poll_interval)
-                continue
-
-            # ---- READ GREEN DATES ----
-            current_green_dates = self.calendar.get_available_green_dates(stable_time=0.4)
+            # ---- READ GREEN DATES (always) ----
+            current_green_dates = self.calendar.get_available_green_dates(stable_time=STABLE_TIME)
             if current_green_dates:
                 print(f"   📅 Current month green dates: {current_green_dates}")
             else:
                 print("   📅 Current month has no green dates")
 
-            # ---- SCAN TARGET MONTHS ----
-            print("   🔍 Scanning target months...")
-            target_date = None
-            for year, month in target_months:
-                print(f"      📆 Checking {year}-{month:02d}...")
-                try:
-                    if not self.calendar.navigate_to_month(year, month):
-                        print(f"      ⚠️ Could not navigate, skipping")
+            # ---- EARLY CHECKS (before/after) ----
+            if cur_year > end_year or (cur_year == end_year and cur_month > end_month):
+                print("   🔄 Current month is AFTER target range – refreshing...")
+                self.calendar.refresh_calendar(self.location)
+                self.calendar.wait_for_calendar_stable(timeout=STABILITY_TIMEOUT, stable_time=STABLE_TIME)
+                continue
+
+            elif cur_year < start_year or (cur_year == start_year and cur_month < start_month):
+                # BEFORE range: scan all target months with a short timeout (3s)
+                print("   🔄 Current month is BEFORE target range – scanning target months...")
+                target_date = None
+                for year, month in target_months:
+                    print(f"      📆 Checking {year}-{month:02d}...")
+                    # Use navigator directly with 3-second timeout
+                    if not self.calendar.navigator.navigate_to(year, month, overall_timeout=3.0):
+                        print(f"      ⚠️ Could not navigate to {year}-{month:02d}, skipping")
                         continue
-                except Exception as e:
-                    print(f"      ⚠️ Navigation error: {e}, skipping")
+                    green_dates = self.calendar.get_available_green_dates(stable_time=STABLE_TIME)
+                    if green_dates:
+                        print(f"      Found {len(green_dates)} green dates: {green_dates[:5]}...")
+                        for d in green_dates:
+                            if self.date_range["from"] <= d <= self.date_range["to"]:
+                                target_date = d
+                                print(f"      ✅ Found target date: {target_date}")
+                                break
+                    else:
+                        print(f"      No green dates")
+                    if target_date:
+                        break
+
+                if target_date:
+                    print(f"\n⚡ Attempting fast booking for {target_date}...")
+                    booking_result = self._attempt_booking(target_date)
+                    if booking_result.get("success"):
+                        print(f"\n✅✅✅ BOOKING SUCCESSFUL! ✅✅✅")
+                        print(f"   Date: {target_date}")
+                        print(f"   Time: {booking_result.get('time')}")
+                        self.executor.logout()
+                        return {"success": True, "date": target_date, "time": booking_result.get('time')}
+                    else:
+                        error = booking_result.get('error', 'Unknown error')
+                        print(f"   ❌ Booking attempt failed: {error}")
+                        print("   🔄 Will refresh and continue polling...")
+                else:
+                    print("   ❌ No green dates in target months – refreshing...")
+                    self.calendar.refresh_calendar(self.location)
+                    self.calendar.wait_for_calendar_stable(timeout=STABILITY_TIMEOUT, stable_time=STABLE_TIME)
                     continue
-                green_dates = self.calendar.get_available_green_dates(stable_time=0.4)
+
+            # ---- NOW WE ARE INSIDE THE RANGE – SCAN TARGET MONTHS ----
+            print("   🔍 Scanning target months...")
+
+            # Build list of months to scan: start with current month if inside
+            try:
+                idx = target_months.index((cur_year, cur_month))
+                months_to_scan = target_months[idx:] + target_months[:idx]
+                print(f"      Current month is inside range – scanning from current month first")
+            except ValueError:
+                months_to_scan = target_months
+
+            target_date = None
+            for year, month in months_to_scan:
+                print(f"      📆 Checking {year}-{month:02d}...")
+                if (year, month) != (cur_year, cur_month):
+                    try:
+                        if not self.calendar.navigate_to_month(year, month):
+                            print(f"      ⚠️ Could not navigate to {year}-{month:02d}, skipping")
+                            continue
+                    except Exception as e:
+                        print(f"      ⚠️ Navigation error: {e}, skipping")
+                        continue
+
+                green_dates = self.calendar.get_available_green_dates(stable_time=STABLE_TIME)
                 if green_dates:
                     print(f"      Found {len(green_dates)} green dates: {green_dates[:5]}...")
                     for d in green_dates:
@@ -179,40 +236,69 @@ class Rescheduler:
                 if target_date:
                     break
 
+            # ---- FAST‑TRACK BOOKING ATTEMPT ----
             if target_date:
-                print(f"\n[5] Booking {target_date}...")
-                if not self.calendar.select_date_ui(target_date):
-                    print(f"   ⚠️ Could not select date: {target_date}")
-                    continue
-                print("   ⏳ Waiting for time slots...")
-                time.sleep(2)
-                time_slots = self.calendar.get_time_slots_ui(target_date)
-                if not time_slots:
-                    print("   ⚠️ No time slots available")
-                    continue
-                selected_time = time_slots[0]
-                print(f"   🕐 Selecting time slot: {selected_time}")
-                result = self.executor.book_appointment(target_date, selected_time)
-                if result.get("success"):
+                print(f"\n⚡ Attempting fast booking for {target_date}...")
+                booking_result = self._attempt_booking(target_date)
+                if booking_result.get("success"):
                     print(f"\n✅✅✅ BOOKING SUCCESSFUL! ✅✅✅")
                     print(f"   Date: {target_date}")
-                    print(f"   Time: {selected_time}")
+                    print(f"   Time: {booking_result.get('time')}")
                     self.executor.logout()
-                    return {"success": True, "date": target_date, "time": selected_time}
+                    return {"success": True, "date": target_date, "time": booking_result.get('time')}
                 else:
-                    print(f"   ❌ Booking failed: {result.get('error')}")
-                    return {"success": False, "error": result.get('error')}
+                    error = booking_result.get('error', 'Unknown error')
+                    print(f"   ❌ Booking attempt failed: {error}")
+                    print("   🔄 Will refresh and continue polling...")
             else:
                 print("   ❌ No green dates in target months")
 
-            # ---- REFRESH AND SLEEP ----
+            # ---- REFRESH AND WAIT FOR STABILITY ----
             if polls < self.max_polls:
                 print("   [~] Refreshing calendar...")
                 self.calendar.refresh_calendar(self.location)
-                time.sleep(self.poll_interval)
+                self.calendar.wait_for_calendar_stable(timeout=STABILITY_TIMEOUT, stable_time=STABLE_TIME)
 
         return {"success": False, "error": "Max polls reached"}
 
+    # ------------------------------------------------------------------
+    # FAST‑TRACK BOOKING ATTEMPT
+    # ------------------------------------------------------------------
+    def _attempt_booking(self, target_date: str) -> Dict[str, Any]:
+        if not self.calendar.select_date_ui(target_date):
+            return {"success": False, "error": "Could not select date (maybe not clickable?)"}
+        try:
+            container = WebDriverWait(self.driver, timeout=3, poll_frequency=0.1).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, ".booking-time-buttons.slot_calender"))
+            )
+        except TimeoutException:
+            return {"success": False, "error": "Time slots did not appear within 3 seconds"}
+        try:
+            time_buttons = container.find_elements(By.CSS_SELECTOR, "button.green-button")
+            visible_enabled = [btn for btn in time_buttons if btn.is_displayed() and btn.is_enabled()]
+            if not visible_enabled:
+                return {"success": False, "error": "No visible/enabled time slots"}
+            selected_time = visible_enabled[0].text.strip()
+            if not selected_time:
+                return {"success": False, "error": "Time slot text empty"}
+        except Exception as e:
+            return {"success": False, "error": f"Error reading time slots: {e}"}
+        try:
+            visible_enabled[0].click()
+        except Exception as e:
+            return {"success": False, "error": f"Could not click time slot: {e}"}
+        try:
+            result = self.executor.book_appointment(target_date, selected_time, skip_time_selection=True)
+            if result.get("success"):
+                return {"success": True, "time": selected_time}
+            else:
+                return {"success": False, "error": result.get("error", "Booking executor failed")}
+        except Exception as e:
+            return {"success": False, "error": f"Booking executor exception: {e}"}
+
+    # ------------------------------------------------------------------
+    # HELPER METHODS (unchanged)
+    # ------------------------------------------------------------------
     def _is_logged_out(self) -> bool:
         try:
             if "login" in self.driver.current_url:

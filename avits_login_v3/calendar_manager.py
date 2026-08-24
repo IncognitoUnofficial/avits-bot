@@ -1,4 +1,4 @@
-# calendar_manager.py – UI‑only with period‑picker‑first navigation, optimised timeouts
+# calendar_manager.py – UI‑only with period‑picker‑first navigation, 2 retry attempts
 import logging
 import time
 import threading
@@ -50,7 +50,6 @@ class CalendarNavigator:
         header = self._get_header_text()
         if not header:
             return None
-        # If header contains a dash (year range), we are in multi-year view
         if "\u2013" in header or "-" in header:
             return None
         parts = header.split()
@@ -91,18 +90,18 @@ class CalendarNavigator:
         return False
 
     # ----------------------------------------------------------------
-    # PERIOD PICKER (primary)
+    # PERIOD PICKER (primary) – with 2 retry attempts
     # ----------------------------------------------------------------
     def _navigate_via_period_picker(self, target_year: int, target_month: int) -> bool:
-        for attempt in range(3):
+        for attempt in range(2):  # <-- REDUCED FROM 3 TO 2
             try:
                 return self._try_period_picker(target_year, target_month)
             except StaleElementReferenceException:
-                logger.warning(f"Period picker stale (attempt {attempt+1}/3)")
+                logger.warning(f"Period picker stale (attempt {attempt+1}/2)")
                 time.sleep(0.3)
                 continue
             except Exception as e:
-                logger.warning(f"Period picker error (attempt {attempt+1}/3): {e}")
+                logger.warning(f"Period picker error (attempt {attempt+1}/2): {e}")
                 time.sleep(0.3)
                 continue
         return False
@@ -114,12 +113,9 @@ class CalendarNavigator:
                 EC.element_to_be_clickable((By.CSS_SELECTOR, ".mat-calendar-period-button"))
             )
             period_btn.click()
-            # Wait for month view
             WebDriverWait(self.driver, 2, poll_frequency=POLL_FREQUENCY).until(
                 lambda d: not self._is_multi_year_view()
             )
-            # Now we are in month view; we'll proceed to open the picker again
-            # (if we didn't, we'd be in month view already)
 
         # 2. Open the period picker
         period_btn = WebDriverWait(self.driver, 2, poll_frequency=POLL_FREQUENCY).until(
@@ -128,26 +124,23 @@ class CalendarNavigator:
         self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", period_btn)
         period_btn.click()
 
-        # 3. Wait for year grid to appear
+        # 3. Wait for year grid
         WebDriverWait(self.driver, 2, poll_frequency=POLL_FREQUENCY).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, ".mat-calendar-body-cell"))
         )
 
-        # 4. Select target year – try to find it directly
+        # 4. Select target year
         year_btn = None
         try:
             year_btn = WebDriverWait(self.driver, 2, poll_frequency=POLL_FREQUENCY).until(
                 EC.element_to_be_clickable((By.XPATH, f"//button[contains(@class, 'mat-calendar-body-cell') and @aria-label='{target_year}']"))
             )
         except TimeoutException:
-            # If not visible, scroll the year grid (max 8 steps)
             for _ in range(8):
-                # Determine direction based on target year relative to currently visible years
                 visible = self._get_visible_years()
                 if not visible:
                     break
                 if target_year in visible:
-                    # It just became visible; try to find it again
                     try:
                         year_btn = WebDriverWait(self.driver, 1, poll_frequency=POLL_FREQUENCY).until(
                             EC.element_to_be_clickable((By.XPATH, f"//button[contains(@class, 'mat-calendar-body-cell') and @aria-label='{target_year}']"))
@@ -160,7 +153,6 @@ class CalendarNavigator:
                 elif target_year > max(visible):
                     btn_selector = ".mat-calendar-next-button"
                 else:
-                    # Should be visible but not found; retry finding
                     continue
                 try:
                     scroll_btn = WebDriverWait(self.driver, 1, poll_frequency=POLL_FREQUENCY).until(
@@ -170,7 +162,6 @@ class CalendarNavigator:
                     time.sleep(0.3)
                 except:
                     break
-            # After scrolling, try once more to find the year
             if not year_btn:
                 try:
                     year_btn = WebDriverWait(self.driver, 1, poll_frequency=POLL_FREQUENCY).until(
@@ -186,17 +177,15 @@ class CalendarNavigator:
         self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", year_btn)
         year_btn.click()
 
-        # 5. Wait for month view to appear (header should no longer be a range)
+        # 5. Wait for month view
         try:
             WebDriverWait(self.driver, 2, poll_frequency=POLL_FREQUENCY).until(
                 lambda d: not self._is_multi_year_view()
             )
         except TimeoutException:
-            # If month view didn't appear, maybe we need to click the period button again?
-            # But we'll proceed anyway – the month buttons might still be visible.
             pass
 
-        # 6. Select target month via aria-label
+        # 6. Select target month
         month_label = f"{MONTH_NAMES_FULL[target_month - 1]} {target_year}"
         month_btn = WebDriverWait(self.driver, 2, poll_frequency=POLL_FREQUENCY).until(
             EC.element_to_be_clickable((By.XPATH, f"//button[contains(@class, 'mat-calendar-body-cell') and @aria-label='{month_label}']"))
@@ -204,7 +193,7 @@ class CalendarNavigator:
         self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", month_btn)
         month_btn.click()
 
-        # 7. Verify we reached the target
+        # 7. Verify
         if self._wait_for_target(target_month, target_year, timeout=2.0):
             logger.info(f"Period picker succeeded: {target_month}/{target_year}")
             return True
@@ -224,7 +213,7 @@ class CalendarNavigator:
     # ARROWS (fallback)
     # ----------------------------------------------------------------
     def _click_arrow_with_retry(self, btn_selector: str) -> bool:
-        for _ in range(3):
+        for _ in range(2):
             try:
                 btn = WebDriverWait(self.driver, 2, poll_frequency=POLL_FREQUENCY).until(
                     EC.element_to_be_clickable((By.CSS_SELECTOR, btn_selector))
@@ -271,7 +260,6 @@ class CalendarNavigator:
         while time.monotonic() < deadline:
             attempt += 1
 
-            # If we are already in multi-year view, close it
             if self._is_multi_year_view():
                 try:
                     period_btn = WebDriverWait(self.driver, 2, poll_frequency=POLL_FREQUENCY).until(
@@ -289,11 +277,9 @@ class CalendarNavigator:
             if current and current[0] == target_month and current[1] == target_year:
                 return True
 
-            # Primary: period picker
             if self._navigate_via_period_picker(target_year, target_month):
                 return True
 
-            # Fallback: arrows
             logger.info("Period picker failed, trying arrows")
             if self._navigate_via_arrows(target_year, target_month):
                 return True
