@@ -1,0 +1,29 @@
+{
+    "login_url": "https://www.usvisaappt.com/visaapplicantui/login",
+    "dashboard_path": "/home/dashboard",
+    "login_api_path": "/identity/user/login",
+    "timeout_seconds": 30,
+    "captcha_selectors": [
+        ".g-recaptcha",
+        "[data-sitekey]",
+        "iframe[src*='recaptcha']",
+        "iframe[src*='hcaptcha']",
+        ".cf-turnstile",
+        "[data-turnstile-sitekey]",
+        ".h-captcha",
+        "[data-hcaptcha-widget-id]",
+        ".captcha",
+        "[id*='captcha' i]",
+        "[class*='captcha' i]"
+    ],
+    "button_texts": ["SIGN IN"],
+    "button_fallback_selector": ".btn-primary-blue",
+    "max_login_attempts": 3,
+    "retry_delay_seconds": 10,
+    "captcha_wait_seconds": 300,
+    "typing_delay_min": 0.03,
+    "typing_delay_max": 0.12,
+    "log_file": "logs/avits_login.log",
+    "result_file": "avits_login_result.json",
+    "proxy": null
+}

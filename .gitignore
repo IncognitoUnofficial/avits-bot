@@ -1,0 +1,21 @@
+# Chrome
+chrome-131/
+
+# Build / distribution
+dist/
+build/
+
+# Logs
+logs/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Environment / secrets
+.env
+
+# VS Code
+.vscode/

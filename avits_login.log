@@ -1,0 +1,1080 @@
+2026-08-10 11:18:02,081 [INFO] root:53 - ============================================================
+2026-08-10 11:18:02,081 [INFO] root:54 - AVITS Login Bot v3 – Stealth Headed Chrome
+2026-08-10 11:18:02,082 [INFO] root:55 - Account: geraldtage@gmail.com
+2026-08-10 11:18:02,082 [INFO] root:56 - ============================================================
+2026-08-10 11:18:02,082 [INFO] root:67 - Login attempt 1/3
+2026-08-10 11:18:02,085 [INFO] avits_login_v3.driver_manager:28 - Using fresh Chrome profile: C:\Users\spart\AppData\Local\Temp\avits_bot_j8o6ogv8
+2026-08-10 11:18:02,085 [INFO] avits_login_v3.driver_manager:52 - Launching undetected‑chromedriver (headed)...
+2026-08-10 11:25:16,562 [INFO] root:53 - ============================================================
+2026-08-10 11:25:16,562 [INFO] root:54 - AVITS Login Bot v3 – Stealth Headed Chrome
+2026-08-10 11:25:16,562 [INFO] root:55 - Account: geraldtage@gmail.com
+2026-08-10 11:25:16,563 [INFO] root:56 - ============================================================
+2026-08-10 11:25:16,563 [INFO] root:67 - Login attempt 1/3
+2026-08-10 11:25:16,564 [INFO] avits_login_v3.driver_manager:21 - Using fresh Chrome profile: C:\Users\spart\AppData\Local\Temp\avits_bot_p4oes7i_
+2026-08-10 11:25:16,564 [INFO] avits_login_v3.driver_manager:42 - Launching undetected‑chromedriver (headed)...
+2026-08-10 11:37:35,670 [INFO] root:53 - ============================================================
+2026-08-10 11:37:35,670 [INFO] root:54 - AVITS Login Bot v3 – Stealth Headed Chrome
+2026-08-10 11:37:35,671 [INFO] root:55 - Account: geraldtage@gmail.com
+2026-08-10 11:37:35,671 [INFO] root:56 - ============================================================
+2026-08-10 11:37:35,671 [INFO] root:67 - Login attempt 1/3
+2026-08-10 11:37:35,672 [INFO] avits_login_v3.driver_manager:21 - Using fresh Chrome profile: C:\Users\spart\AppData\Local\Temp\avits_bot_lf7tpna9
+2026-08-10 11:37:35,672 [INFO] avits_login_v3.driver_manager:42 - Launching undetected‑chromedriver (headed)...
+2026-08-10 11:37:45,965 [ERROR] avits_login_v3.driver_manager:127 - Failed to initialise Chrome driver: Message: session not created: cannot connect to chrome at 127.0.0.1:8565
+from session not created: This version of ChromeDriver only supports Chrome version 132
+Current browser version is 151.0.7922.109; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+	GetHandleVerifier [0x003F74A3+25091]
+	(No symbol) [0x0037DC04]
+	(No symbol) [0x0025B373]
+	(No symbol) [0x00290AC2]
+	(No symbol) [0x0028FAE9]
+	(No symbol) [0x0028652F]
+	(No symbol) [0x00286377]
+	(No symbol) [0x002CB489]
+	(No symbol) [0x002CAC4A]
+	(No symbol) [0x002C1CA6]
+	(No symbol) [0x002931D5]
+	(No symbol) [0x0029435D]
+	GetHandleVerifier [0x006F07C3+3142947]
+	GetHandleVerifier [0x00701A2B+3213195]
+	GetHandleVerifier [0x006FC412+3191154]
+	GetHandleVerifier [0x00498720+685184]
+	(No symbol) [0x00386E1D]
+	(No symbol) [0x00383E18]
+	(No symbol) [0x00383FB6]
+	(No symbol) [0x003766F0]
+	BaseThreadInitThunk [0x75B25D49+25]
+	RtlInitializeExceptionChain [0x7753E00B+107]
+	RtlGetAppContainerNamedObjectPath [0x7753DF91+561]
+
+2026-08-10 11:37:45,966 [ERROR] root:155 - Attempt 1 failed: Driver init failed: Message: session not created: cannot connect to chrome at 127.0.0.1:8565
+from session not created: This version of ChromeDriver only supports Chrome version 132
+Current browser version is 151.0.7922.109; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+	GetHandleVerifier [0x003F74A3+25091]
+	(No symbol) [0x0037DC04]
+	(No symbol) [0x0025B373]
+	(No symbol) [0x00290AC2]
+	(No symbol) [0x0028FAE9]
+	(No symbol) [0x0028652F]
+	(No symbol) [0x00286377]
+	(No symbol) [0x002CB489]
+	(No symbol) [0x002CAC4A]
+	(No symbol) [0x002C1CA6]
+	(No symbol) [0x002931D5]
+	(No symbol) [0x0029435D]
+	GetHandleVerifier [0x006F07C3+3142947]
+	GetHandleVerifier [0x00701A2B+3213195]
+	GetHandleVerifier [0x006FC412+3191154]
+	GetHandleVerifier [0x00498720+685184]
+	(No symbol) [0x00386E1D]
+	(No symbol) [0x00383E18]
+	(No symbol) [0x00383FB6]
+	(No symbol) [0x003766F0]
+	BaseThreadInitThunk [0x75B25D49+25]
+	RtlInitializeExceptionChain [0x7753E00B+107]
+	RtlGetAppContainerNamedObjectPath [0x7753DF91+561]
+
+2026-08-10 11:37:45,966 [INFO] root:157 - Retrying in 10s...
+2026-08-10 11:37:55,967 [INFO] root:67 - Login attempt 2/3
+2026-08-10 11:37:55,970 [INFO] avits_login_v3.driver_manager:21 - Using fresh Chrome profile: C:\Users\spart\AppData\Local\Temp\avits_bot_bkjgi3va
+2026-08-10 11:37:55,970 [INFO] avits_login_v3.driver_manager:42 - Launching undetected‑chromedriver (headed)...
+2026-08-10 11:38:06,342 [ERROR] avits_login_v3.driver_manager:127 - Failed to initialise Chrome driver: Message: session not created: cannot connect to chrome at 127.0.0.1:4677
+from session not created: This version of ChromeDriver only supports Chrome version 132
+Current browser version is 151.0.7922.109; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+	GetHandleVerifier [0x004174A3+25091]
+	(No symbol) [0x0039DC04]
+	(No symbol) [0x0027B373]
+	(No symbol) [0x002B0AC2]
+	(No symbol) [0x002AFAE9]
+	(No symbol) [0x002A652F]
+	(No symbol) [0x002A6377]
+	(No symbol) [0x002EB489]
+	(No symbol) [0x002EAC4A]
+	(No symbol) [0x002E1CA6]
+	(No symbol) [0x002B31D5]
+	(No symbol) [0x002B435D]
+	GetHandleVerifier [0x007107C3+3142947]
+	GetHandleVerifier [0x00721A2B+3213195]
+	GetHandleVerifier [0x0071C412+3191154]
+	GetHandleVerifier [0x004B8720+685184]
+	(No symbol) [0x003A6E1D]
+	(No symbol) [0x003A3E18]
+	(No symbol) [0x003A3FB6]
+	(No symbol) [0x003966F0]
+	BaseThreadInitThunk [0x75B25D49+25]
+	RtlInitializeExceptionChain [0x7753E00B+107]
+	RtlGetAppContainerNamedObjectPath [0x7753DF91+561]
+
+2026-08-10 11:38:06,343 [ERROR] root:155 - Attempt 2 failed: Driver init failed: Message: session not created: cannot connect to chrome at 127.0.0.1:4677
+from session not created: This version of ChromeDriver only supports Chrome version 132
+Current browser version is 151.0.7922.109; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+	GetHandleVerifier [0x004174A3+25091]
+	(No symbol) [0x0039DC04]
+	(No symbol) [0x0027B373]
+	(No symbol) [0x002B0AC2]
+	(No symbol) [0x002AFAE9]
+	(No symbol) [0x002A652F]
+	(No symbol) [0x002A6377]
+	(No symbol) [0x002EB489]
+	(No symbol) [0x002EAC4A]
+	(No symbol) [0x002E1CA6]
+	(No symbol) [0x002B31D5]
+	(No symbol) [0x002B435D]
+	GetHandleVerifier [0x007107C3+3142947]
+	GetHandleVerifier [0x00721A2B+3213195]
+	GetHandleVerifier [0x0071C412+3191154]
+	GetHandleVerifier [0x004B8720+685184]
+	(No symbol) [0x003A6E1D]
+	(No symbol) [0x003A3E18]
+	(No symbol) [0x003A3FB6]
+	(No symbol) [0x003966F0]
+	BaseThreadInitThunk [0x75B25D49+25]
+	RtlInitializeExceptionChain [0x7753E00B+107]
+	RtlGetAppContainerNamedObjectPath [0x7753DF91+561]
+
+2026-08-10 11:38:06,343 [INFO] root:157 - Retrying in 10s...
+2026-08-10 11:38:16,344 [INFO] root:67 - Login attempt 3/3
+2026-08-10 11:38:16,347 [INFO] avits_login_v3.driver_manager:21 - Using fresh Chrome profile: C:\Users\spart\AppData\Local\Temp\avits_bot_gc7nncn7
+2026-08-10 11:38:16,347 [INFO] avits_login_v3.driver_manager:42 - Launching undetected‑chromedriver (headed)...
+2026-08-10 11:38:26,527 [ERROR] avits_login_v3.driver_manager:127 - Failed to initialise Chrome driver: Message: session not created: cannot connect to chrome at 127.0.0.1:9943
+from session not created: This version of ChromeDriver only supports Chrome version 132
+Current browser version is 151.0.7922.109; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+	GetHandleVerifier [0x00A274A3+25091]
+	(No symbol) [0x009ADC04]
+	(No symbol) [0x0088B373]
+	(No symbol) [0x008C0AC2]
+	(No symbol) [0x008BFAE9]
+	(No symbol) [0x008B652F]
+	(No symbol) [0x008B6377]
+	(No symbol) [0x008FB489]
+	(No symbol) [0x008FAC4A]
+	(No symbol) [0x008F1CA6]
+	(No symbol) [0x008C31D5]
+	(No symbol) [0x008C435D]
+	GetHandleVerifier [0x00D207C3+3142947]
+	GetHandleVerifier [0x00D31A2B+3213195]
+	GetHandleVerifier [0x00D2C412+3191154]
+	GetHandleVerifier [0x00AC8720+685184]
+	(No symbol) [0x009B6E1D]
+	(No symbol) [0x009B3E18]
+	(No symbol) [0x009B3FB6]
+	(No symbol) [0x009A66F0]
+	BaseThreadInitThunk [0x75B25D49+25]
+	RtlInitializeExceptionChain [0x7753E00B+107]
+	RtlGetAppContainerNamedObjectPath [0x7753DF91+561]
+
+2026-08-10 11:38:26,528 [ERROR] root:155 - Attempt 3 failed: Driver init failed: Message: session not created: cannot connect to chrome at 127.0.0.1:9943
+from session not created: This version of ChromeDriver only supports Chrome version 132
+Current browser version is 151.0.7922.109; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+	GetHandleVerifier [0x00A274A3+25091]
+	(No symbol) [0x009ADC04]
+	(No symbol) [0x0088B373]
+	(No symbol) [0x008C0AC2]
+	(No symbol) [0x008BFAE9]
+	(No symbol) [0x008B652F]
+	(No symbol) [0x008B6377]
+	(No symbol) [0x008FB489]
+	(No symbol) [0x008FAC4A]
+	(No symbol) [0x008F1CA6]
+	(No symbol) [0x008C31D5]
+	(No symbol) [0x008C435D]
+	GetHandleVerifier [0x00D207C3+3142947]
+	GetHandleVerifier [0x00D31A2B+3213195]
+	GetHandleVerifier [0x00D2C412+3191154]
+	GetHandleVerifier [0x00AC8720+685184]
+	(No symbol) [0x009B6E1D]
+	(No symbol) [0x009B3E18]
+	(No symbol) [0x009B3FB6]
+	(No symbol) [0x009A66F0]
+	BaseThreadInitThunk [0x75B25D49+25]
+	RtlInitializeExceptionChain [0x7753E00B+107]
+	RtlGetAppContainerNamedObjectPath [0x7753DF91+561]
+
+2026-08-10 11:38:26,528 [ERROR] root:166 - All attempts exhausted. Login failed.
+2026-08-10 11:59:40,612 [INFO] root:53 - ============================================================
+2026-08-10 11:59:40,612 [INFO] root:54 - AVITS Login Bot v3 – Stealth Headed Chrome
+2026-08-10 11:59:40,612 [INFO] root:55 - Account: geraldtage@gmail.com
+2026-08-10 11:59:40,612 [INFO] root:56 - ============================================================
+2026-08-10 11:59:40,612 [INFO] root:67 - Login attempt 1/3
+2026-08-10 11:59:40,614 [INFO] avits_login_v3.driver_manager:22 - Using fresh Chrome profile: C:\Users\spart\AppData\Local\Temp\avits_bot_u7talvwr
+2026-08-10 11:59:40,614 [INFO] avits_login_v3.driver_manager:51 - Launching undetected‑chromedriver (headed) with Chrome 131...
+2026-08-10 12:00:01,394 [INFO] avits_login_v3.driver_manager:144 - All stealth patches applied successfully.
+2026-08-10 12:00:01,398 [INFO] avits_login_v3.login_page:29 - Loading https://www.usvisaappt.com/visaapplicantui/login
+2026-08-10 12:00:22,946 [INFO] root:86 - No CAPTCHA detected before login.
+2026-08-10 12:00:23,292 [DEBUG] avits_bot:51 - Typing 20 chars into element input
+2026-08-10 12:00:25,195 [DEBUG] avits_bot:60 - Typing complete
+2026-08-10 12:00:25,195 [INFO] avits_login_v3.login_page:88 - Email entered: geraldtage@gmail.com
+2026-08-10 12:00:25,959 [DEBUG] avits_bot:51 - Typing 14 chars into element input
+2026-08-10 12:00:28,372 [DEBUG] avits_bot:60 - Typing complete
+2026-08-10 12:00:28,372 [INFO] avits_login_v3.login_page:102 - Password entered
+2026-08-10 12:00:30,475 [DEBUG] avits_bot:93 - Clicked with human‑like mouse path
+2026-08-10 12:00:30,475 [INFO] avits_login_v3.login_page:128 - Clicked SIGN IN
+2026-08-10 12:00:31,491 [INFO] avits_login_v3.network_listener:49 - Found login API response: HTTP 500
+2026-08-10 12:00:31,491 [INFO] avits_login_v3.network_listener:75 - Tokens extracted. Status: 500
+2026-08-10 12:00:31,492 [ERROR] root:99 - Login API returned 500 – server error
+2026-08-10 12:00:31,492 [ERROR] root:155 - Attempt 1 failed: HTTP 500
+2026-08-10 12:00:31,493 [INFO] root:157 - Retrying in 10s...
+2026-08-10 12:00:41,494 [INFO] root:67 - Login attempt 2/3
+2026-08-10 12:00:41,495 [INFO] avits_login_v3.driver_manager:22 - Using fresh Chrome profile: C:\Users\spart\AppData\Local\Temp\avits_bot_0zdwukl_
+2026-08-10 12:00:41,495 [INFO] avits_login_v3.driver_manager:51 - Launching undetected‑chromedriver (headed) with Chrome 131...
+2026-08-10 12:00:42,114 [INFO] avits_login_v3.driver_manager:144 - All stealth patches applied successfully.
+2026-08-10 12:00:42,117 [INFO] avits_login_v3.login_page:29 - Loading https://www.usvisaappt.com/visaapplicantui/login
+2026-08-10 12:00:44,582 [ERROR] root:169 - Unexpected error: Message: target frame detached: received Inspector.detached event
+  (failed to check if window was closed: disconnected: Unable to receive message from renderer)
+  (Session info: chrome=131.0.6778.204)
+Stacktrace:
+	GetHandleVerifier [0x002BFD53+23747]
+	(No symbol) [0x00247D54]
+	(No symbol) [0x0011BE53]
+	(No symbol) [0x0010E998]
+	(No symbol) [0x0010DBA7]
+	(No symbol) [0x0010D503]
+	(No symbol) [0x0010D43D]
+	(No symbol) [0x0010B8BB]
+	(No symbol) [0x0010BF2D]
+	(No symbol) [0x001181BA]
+	(No symbol) [0x001278B5]
+	(No symbol) [0x0012C726]
+	(No symbol) [0x0010C535]
+	(No symbol) [0x001274E1]
+	(No symbol) [0x0019B778]
+	(No symbol) [0x00181B96]
+	(No symbol) [0x00153F3C]
+	(No symbol) [0x00154EBD]
+	GetHandleVerifier [0x0059AC73+3017699]
+	GetHandleVerifier [0x005AB93B+3086507]
+	GetHandleVerifier [0x005A40F2+3055714]
+	GetHandleVerifier [0x00355AF0+637536]
+	(No symbol) [0x00250A5D]
+	(No symbol) [0x0024DA28]
+	(No symbol) [0x0024DBC5]
+	(No symbol) [0x002407F0]
+	BaseThreadInitThunk [0x75B25D49+25]
+	RtlInitializeExceptionChain [0x7753E00B+107]
+	RtlGetAppContainerNamedObjectPath [0x7753DF91+561]
+	(No symbol) [0x00000000]
+Traceback (most recent call last):
+  File "C:\Users\spart\AVITS\avits_login\avits_login_v3\main.py", line 79, in main
+    login_page.load()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\spart\AVITS\avits_login\avits_login_v3\login_page.py", line 30, in load
+    self.driver.get(self.login_url)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\spart\AVITS\avits_login\venv\Lib\site-packages\undetected_chromedriver\__init__.py", line 665, in get
+    return super().get(url)
+           ~~~~~~~~~~~^^^^^
+  File "C:\Users\spart\AVITS\avits_login\venv\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 512, in get
+    self.execute(Command.GET, {"url": url})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\spart\AVITS\avits_login\venv\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 492, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\spart\AVITS\avits_login\venv\Lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.WebDriverException: Message: target frame detached: received Inspector.detached event
+  (failed to check if window was closed: disconnected: Unable to receive message from renderer)
+  (Session info: chrome=131.0.6778.204)
+Stacktrace:
+	GetHandleVerifier [0x002BFD53+23747]
+	(No symbol) [0x00247D54]
+	(No symbol) [0x0011BE53]
+	(No symbol) [0x0010E998]
+	(No symbol) [0x0010DBA7]
+	(No symbol) [0x0010D503]
+	(No symbol) [0x0010D43D]
+	(No symbol) [0x0010B8BB]
+	(No symbol) [0x0010BF2D]
+	(No symbol) [0x001181BA]
+	(No symbol) [0x001278B5]
+	(No symbol) [0x0012C726]
+	(No symbol) [0x0010C535]
+	(No symbol) [0x001274E1]
+	(No symbol) [0x0019B778]
+	(No symbol) [0x00181B96]
+	(No symbol) [0x00153F3C]
+	(No symbol) [0x00154EBD]
+	GetHandleVerifier [0x0059AC73+3017699]
+	GetHandleVerifier [0x005AB93B+3086507]
+	GetHandleVerifier [0x005A40F2+3055714]
+	GetHandleVerifier [0x00355AF0+637536]
+	(No symbol) [0x00250A5D]
+	(No symbol) [0x0024DA28]
+	(No symbol) [0x0024DBC5]
+	(No symbol) [0x002407F0]
+	BaseThreadInitThunk [0x75B25D49+25]
+	RtlInitializeExceptionChain [0x7753E00B+107]
+	RtlGetAppContainerNamedObjectPath [0x7753DF91+561]
+	(No symbol) [0x00000000]
+
+2026-08-10 12:00:44,604 [INFO] root:175 - Browser remains open for inspection. Press Enter to close...
+2026-08-10 12:01:32,335 [INFO] root:53 - ============================================================
+2026-08-10 12:01:32,335 [INFO] root:54 - AVITS Login Bot v3 – Stealth Headed Chrome
+2026-08-10 12:01:32,335 [INFO] root:55 - Account: geraldtagoe@gmail.com
+2026-08-10 12:01:32,336 [INFO] root:56 - ============================================================
+2026-08-10 12:01:32,336 [INFO] root:67 - Login attempt 1/3
+2026-08-10 12:01:32,337 [INFO] avits_login_v3.driver_manager:22 - Using fresh Chrome profile: C:\Users\spart\AppData\Local\Temp\avits_bot_r4dfiq_g
+2026-08-10 12:01:32,337 [INFO] avits_login_v3.driver_manager:51 - Launching undetected‑chromedriver (headed) with Chrome 131...
+2026-08-10 12:01:38,817 [INFO] avits_login_v3.driver_manager:144 - All stealth patches applied successfully.
+2026-08-10 12:01:38,820 [INFO] avits_login_v3.login_page:29 - Loading https://www.usvisaappt.com/visaapplicantui/login
+2026-08-10 12:01:48,674 [INFO] root:86 - No CAPTCHA detected before login.
+2026-08-10 12:01:48,968 [DEBUG] avits_bot:51 - Typing 21 chars into element input
+2026-08-10 12:01:51,789 [DEBUG] avits_bot:60 - Typing complete
+2026-08-10 12:01:51,789 [INFO] avits_login_v3.login_page:88 - Email entered: geraldtagoe@gmail.com
+2026-08-10 12:01:52,763 [DEBUG] avits_bot:51 - Typing 14 chars into element input
+2026-08-10 12:01:54,375 [DEBUG] avits_bot:60 - Typing complete
+2026-08-10 12:01:54,375 [INFO] avits_login_v3.login_page:102 - Password entered
+2026-08-10 12:01:56,798 [DEBUG] avits_bot:93 - Clicked with human‑like mouse path
+2026-08-10 12:01:56,798 [INFO] avits_login_v3.login_page:128 - Clicked SIGN IN
+2026-08-10 12:01:57,809 [INFO] avits_login_v3.network_listener:49 - Found login API response: HTTP 500
+2026-08-10 12:01:57,810 [INFO] avits_login_v3.network_listener:75 - Tokens extracted. Status: 500
+2026-08-10 12:01:57,810 [ERROR] root:99 - Login API returned 500 – server error
+2026-08-10 12:01:57,810 [ERROR] root:155 - Attempt 1 failed: HTTP 500
+2026-08-10 12:01:57,810 [INFO] root:157 - Retrying in 10s...
+2026-08-10 12:02:07,814 [INFO] root:67 - Login attempt 2/3
+2026-08-10 12:02:07,816 [INFO] avits_login_v3.driver_manager:22 - Using fresh Chrome profile: C:\Users\spart\AppData\Local\Temp\avits_bot_nh76811s
+2026-08-10 12:02:07,816 [INFO] avits_login_v3.driver_manager:51 - Launching undetected‑chromedriver (headed) with Chrome 131...
+2026-08-10 12:02:08,534 [INFO] avits_login_v3.driver_manager:144 - All stealth patches applied successfully.
+2026-08-10 12:02:08,537 [INFO] avits_login_v3.login_page:29 - Loading https://www.usvisaappt.com/visaapplicantui/login
+2026-08-10 12:02:18,683 [INFO] root:86 - No CAPTCHA detected before login.
+2026-08-10 12:02:19,058 [DEBUG] avits_bot:51 - Typing 21 chars into element input
+2026-08-10 12:02:21,905 [DEBUG] avits_bot:60 - Typing complete
+2026-08-10 12:02:21,905 [INFO] avits_login_v3.login_page:88 - Email entered: geraldtagoe@gmail.com
+2026-08-10 12:02:22,580 [DEBUG] avits_bot:51 - Typing 14 chars into element input
+2026-08-10 12:02:25,408 [DEBUG] avits_bot:60 - Typing complete
+2026-08-10 12:02:25,408 [INFO] avits_login_v3.login_page:102 - Password entered
+2026-08-10 12:02:27,526 [DEBUG] avits_bot:93 - Clicked with human‑like mouse path
+2026-08-10 12:02:27,527 [INFO] avits_login_v3.login_page:128 - Clicked SIGN IN
+2026-08-10 12:02:29,555 [INFO] avits_login_v3.network_listener:49 - Found login API response: HTTP 500
+2026-08-10 12:02:29,556 [INFO] avits_login_v3.network_listener:75 - Tokens extracted. Status: 500
+2026-08-10 12:02:29,557 [ERROR] root:99 - Login API returned 500 – server error
+2026-08-10 12:02:29,557 [ERROR] root:155 - Attempt 2 failed: HTTP 500
+2026-08-10 12:02:29,558 [INFO] root:157 - Retrying in 10s...
+2026-08-10 16:21:39,775 [INFO] root:53 - ============================================================
+2026-08-10 16:21:39,775 [INFO] root:54 - AVITS Login Bot v3 – Stealth Headed Chrome
+2026-08-10 16:21:39,775 [INFO] root:55 - Account: sarfodickson17@gmail.com
+2026-08-10 16:21:39,775 [INFO] root:56 - ============================================================
+2026-08-10 16:21:39,776 [INFO] root:67 - Login attempt 1/3
+2026-08-10 16:21:39,777 [INFO] avits_login_v3.driver_manager:22 - Using fresh Chrome profile: C:\Users\spart\AppData\Local\Temp\avits_bot_i29vdx2u
+2026-08-10 16:21:39,777 [INFO] avits_login_v3.driver_manager:51 - Launching undetected‑chromedriver (headed) with Chrome 131...
+2026-08-10 16:21:47,790 [INFO] avits_login_v3.driver_manager:144 - All stealth patches applied successfully.
+2026-08-10 16:21:47,794 [INFO] avits_login_v3.login_page:29 - Loading https://www.usvisaappt.com/visaapplicantui/login
+2026-08-10 16:22:21,323 [INFO] root:86 - No CAPTCHA detected before login.
+2026-08-10 16:22:21,631 [DEBUG] avits_bot:51 - Typing 24 chars into element input
+2026-08-10 16:22:24,923 [DEBUG] avits_bot:60 - Typing complete
+2026-08-10 16:22:24,923 [INFO] avits_login_v3.login_page:88 - Email entered: sarfodickson17@gmail.com
+2026-08-10 16:22:25,689 [DEBUG] avits_bot:51 - Typing 15 chars into element input
+2026-08-10 16:22:28,790 [DEBUG] avits_bot:60 - Typing complete
+2026-08-10 16:22:28,791 [INFO] avits_login_v3.login_page:102 - Password entered
+2026-08-10 16:22:30,981 [DEBUG] avits_bot:93 - Clicked with human‑like mouse path
+2026-08-10 16:22:30,981 [INFO] avits_login_v3.login_page:128 - Clicked SIGN IN
+2026-08-10 16:22:31,495 [INFO] avits_login_v3.network_listener:49 - Found login API response: HTTP 200
+2026-08-10 16:22:31,495 [INFO] avits_login_v3.network_listener:75 - Tokens extracted. Status: 200
+2026-08-10 16:22:31,496 [DEBUG] avits_login_v3.session_manager:16 - Tokens updated: authorization present = True
+2026-08-10 16:22:31,496 [INFO] root:104 - Tokens captured successfully.
+2026-08-10 16:22:31,541 [ERROR] root:155 - Attempt 1 failed: Unknown login failure
+2026-08-10 16:22:31,541 [INFO] root:157 - Retrying in 10s...
+2026-08-10 16:22:41,545 [INFO] root:67 - Login attempt 2/3
+2026-08-10 16:22:41,545 [INFO] avits_login_v3.driver_manager:22 - Using fresh Chrome profile: C:\Users\spart\AppData\Local\Temp\avits_bot_prdwlwff
+2026-08-10 16:22:41,546 [INFO] avits_login_v3.driver_manager:51 - Launching undetected‑chromedriver (headed) with Chrome 131...
+2026-08-10 16:22:42,290 [INFO] avits_login_v3.driver_manager:144 - All stealth patches applied successfully.
+2026-08-10 16:22:42,292 [INFO] avits_login_v3.login_page:29 - Loading https://www.usvisaappt.com/visaapplicantui/login
+2026-08-10 16:22:52,128 [WARNING] avits_login_v3.login_page:63 - Angular wait warning: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=131.0.6778.204)
+Stacktrace:
+	GetHandleVerifier [0x00EDFD53+23747]
+	(No symbol) [0x00E67D54]
+	(No symbol) [0x00D3BE53]
+	(No symbol) [0x00D1D91B]
+	(No symbol) [0x00DA7EFF]
+	(No symbol) [0x00DBAD49]
+	(No symbol) [0x00DA1B96]
+	(No symbol) [0x00D73F3C]
+	(No symbol) [0x00D74EBD]
+	GetHandleVerifier [0x011BAC73+3017699]
+	GetHandleVerifier [0x011CB93B+3086507]
+	GetHandleVerifier [0x011C40F2+3055714]
+	GetHandleVerifier [0x00F75AF0+637536]
+	(No symbol) [0x00E70A5D]
+	(No symbol) [0x00E6DA28]
+	(No symbol) [0x00E6DBC5]
+	(No symbol) [0x00E607F0]
+	BaseThreadInitThunk [0x75B25D49+25]
+	RtlInitializeExceptionChain [0x7753E00B+107]
+	RtlGetAppContainerNamedObjectPath [0x7753DF91+561]
+
+2026-08-10 16:22:52,234 [INFO] root:86 - No CAPTCHA detected before login.
+2026-08-10 16:22:52,236 [ERROR] root:169 - Unexpected error: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=131.0.6778.204)
+Stacktrace:
+	GetHandleVerifier [0x00EDFD53+23747]
+	(No symbol) [0x00E67D54]
+	(No symbol) [0x00D3BE53]
+	(No symbol) [0x00D1D91B]
+	(No symbol) [0x00DA7EFF]
+	(No symbol) [0x00DBAD49]
+	(No symbol) [0x00DA1B96]
+	(No symbol) [0x00D73F3C]
+	(No symbol) [0x00D74EBD]
+	GetHandleVerifier [0x011BAC73+3017699]
+	GetHandleVerifier [0x011CB93B+3086507]
+	GetHandleVerifier [0x011C40F2+3055714]
+	GetHandleVerifier [0x00F75AF0+637536]
+	(No symbol) [0x00E70A5D]
+	(No symbol) [0x00E6DA28]
+	(No symbol) [0x00E6DBC5]
+	(No symbol) [0x00E607F0]
+	BaseThreadInitThunk [0x75B25D49+25]
+	RtlInitializeExceptionChain [0x7753E00B+107]
+	RtlGetAppContainerNamedObjectPath [0x7753DF91+561]
+Traceback (most recent call last):
+  File "C:\Users\spart\AVITS\avits_login\avits_login_v3\main.py", line 89, in main
+    login_page.fill_credentials(args.email, args.password)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\spart\AVITS\avits_login\avits_login_v3\login_page.py", line 71, in fill_credentials
+    for elem in self.driver.find_elements(By.CSS_SELECTOR, "input[type='text']"):
+                ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\spart\AVITS\avits_login\venv\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 930, in find_elements
+    return self.execute(Command.FIND_ELEMENTS, {"using": by, "value": value})["value"] or []
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\spart\AVITS\avits_login\venv\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 492, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\spart\AVITS\avits_login\venv\Lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=131.0.6778.204)
+Stacktrace:
+	GetHandleVerifier [0x00EDFD53+23747]
+	(No symbol) [0x00E67D54]
+	(No symbol) [0x00D3BE53]
+	(No symbol) [0x00D1D91B]
+	(No symbol) [0x00DA7EFF]
+	(No symbol) [0x00DBAD49]
+	(No symbol) [0x00DA1B96]
+	(No symbol) [0x00D73F3C]
+	(No symbol) [0x00D74EBD]
+	GetHandleVerifier [0x011BAC73+3017699]
+	GetHandleVerifier [0x011CB93B+3086507]
+	GetHandleVerifier [0x011C40F2+3055714]
+	GetHandleVerifier [0x00F75AF0+637536]
+	(No symbol) [0x00E70A5D]
+	(No symbol) [0x00E6DA28]
+	(No symbol) [0x00E6DBC5]
+	(No symbol) [0x00E607F0]
+	BaseThreadInitThunk [0x75B25D49+25]
+	RtlInitializeExceptionChain [0x7753E00B+107]
+	RtlGetAppContainerNamedObjectPath [0x7753DF91+561]
+
+2026-08-10 16:22:52,258 [INFO] root:179 - Browser closed.
+2026-08-10 16:23:23,309 [INFO] root:53 - ============================================================
+2026-08-10 16:23:23,309 [INFO] root:54 - AVITS Login Bot v3 – Stealth Headed Chrome
+2026-08-10 16:23:23,309 [INFO] root:55 - Account: sarfodickson17@gmail.com
+2026-08-10 16:23:23,309 [INFO] root:56 - ============================================================
+2026-08-10 16:23:23,309 [INFO] root:67 - Login attempt 1/3
+2026-08-10 16:23:23,311 [INFO] avits_login_v3.driver_manager:22 - Using fresh Chrome profile: C:\Users\spart\AppData\Local\Temp\avits_bot_0g893t9w
+2026-08-10 16:23:23,311 [INFO] avits_login_v3.driver_manager:51 - Launching undetected‑chromedriver (headed) with Chrome 131...
+2026-08-10 16:23:29,352 [INFO] avits_login_v3.driver_manager:144 - All stealth patches applied successfully.
+2026-08-10 16:23:29,355 [INFO] avits_login_v3.login_page:29 - Loading https://www.usvisaappt.com/visaapplicantui/login
+2026-08-10 16:23:59,333 [INFO] root:86 - No CAPTCHA detected before login.
+2026-08-10 16:23:59,701 [DEBUG] avits_bot:51 - Typing 24 chars into element input
+2026-08-10 16:24:03,025 [DEBUG] avits_bot:60 - Typing complete
+2026-08-10 16:24:03,025 [INFO] avits_login_v3.login_page:88 - Email entered: sarfodickson17@gmail.com
+2026-08-10 16:24:03,694 [DEBUG] avits_bot:51 - Typing 15 chars into element input
+2026-08-10 16:24:06,136 [DEBUG] avits_bot:60 - Typing complete
+2026-08-10 16:24:06,136 [INFO] avits_login_v3.login_page:102 - Password entered
+2026-08-10 16:24:08,535 [DEBUG] avits_bot:93 - Clicked with human‑like mouse path
+2026-08-10 16:24:08,535 [INFO] avits_login_v3.login_page:128 - Clicked SIGN IN
+2026-08-10 16:24:09,064 [INFO] avits_login_v3.network_listener:49 - Found login API response: HTTP 200
+2026-08-10 16:24:09,064 [INFO] avits_login_v3.network_listener:75 - Tokens extracted. Status: 200
+2026-08-10 16:24:09,065 [DEBUG] avits_login_v3.session_manager:16 - Tokens updated: authorization present = True
+2026-08-10 16:24:09,065 [INFO] root:104 - Tokens captured successfully.
+2026-08-10 16:24:09,112 [ERROR] root:155 - Attempt 1 failed: Unknown login failure
+2026-08-10 16:24:09,112 [INFO] root:157 - Retrying in 10s...
+2026-08-10 16:24:19,114 [INFO] root:67 - Login attempt 2/3
+2026-08-10 16:24:19,115 [INFO] avits_login_v3.driver_manager:22 - Using fresh Chrome profile: C:\Users\spart\AppData\Local\Temp\avits_bot_nrmxgc1y
+2026-08-10 16:24:19,115 [INFO] avits_login_v3.driver_manager:51 - Launching undetected‑chromedriver (headed) with Chrome 131...
+2026-08-10 16:24:19,886 [INFO] avits_login_v3.driver_manager:144 - All stealth patches applied successfully.
+2026-08-10 16:24:19,889 [INFO] avits_login_v3.login_page:29 - Loading https://www.usvisaappt.com/visaapplicantui/login
+2026-08-10 16:24:23,109 [WARNING] avits_login_v3.login_page:63 - Angular wait warning: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=131.0.6778.204)
+Stacktrace:
+	GetHandleVerifier [0x00DAFD53+23747]
+	(No symbol) [0x00D37D54]
+	(No symbol) [0x00C0BE53]
+	(No symbol) [0x00BED91B]
+	(No symbol) [0x00C77EFF]
+	(No symbol) [0x00C8AD49]
+	(No symbol) [0x00C71B96]
+	(No symbol) [0x00C43F3C]
+	(No symbol) [0x00C44EBD]
+	GetHandleVerifier [0x0108AC73+3017699]
+	GetHandleVerifier [0x0109B93B+3086507]
+	GetHandleVerifier [0x010940F2+3055714]
+	GetHandleVerifier [0x00E45AF0+637536]
+	(No symbol) [0x00D40A5D]
+	(No symbol) [0x00D3DA28]
+	(No symbol) [0x00D3DBC5]
+	(No symbol) [0x00D307F0]
+	BaseThreadInitThunk [0x75B25D49+25]
+	RtlInitializeExceptionChain [0x7753E00B+107]
+	RtlGetAppContainerNamedObjectPath [0x7753DF91+561]
+
+2026-08-10 16:24:23,241 [INFO] root:86 - No CAPTCHA detected before login.
+2026-08-10 16:24:23,243 [ERROR] root:169 - Unexpected error: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=131.0.6778.204)
+Stacktrace:
+	GetHandleVerifier [0x00DAFD53+23747]
+	(No symbol) [0x00D37D54]
+	(No symbol) [0x00C0BE53]
+	(No symbol) [0x00BED91B]
+	(No symbol) [0x00C77EFF]
+	(No symbol) [0x00C8AD49]
+	(No symbol) [0x00C71B96]
+	(No symbol) [0x00C43F3C]
+	(No symbol) [0x00C44EBD]
+	GetHandleVerifier [0x0108AC73+3017699]
+	GetHandleVerifier [0x0109B93B+3086507]
+	GetHandleVerifier [0x010940F2+3055714]
+	GetHandleVerifier [0x00E45AF0+637536]
+	(No symbol) [0x00D40A5D]
+	(No symbol) [0x00D3DA28]
+	(No symbol) [0x00D3DBC5]
+	(No symbol) [0x00D307F0]
+	BaseThreadInitThunk [0x75B25D49+25]
+	RtlInitializeExceptionChain [0x7753E00B+107]
+	RtlGetAppContainerNamedObjectPath [0x7753DF91+561]
+Traceback (most recent call last):
+  File "C:\Users\spart\AVITS\avits_login\avits_login_v3\main.py", line 89, in main
+    login_page.fill_credentials(args.email, args.password)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\spart\AVITS\avits_login\avits_login_v3\login_page.py", line 71, in fill_credentials
+    for elem in self.driver.find_elements(By.CSS_SELECTOR, "input[type='text']"):
+                ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\spart\AVITS\avits_login\venv\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 930, in find_elements
+    return self.execute(Command.FIND_ELEMENTS, {"using": by, "value": value})["value"] or []
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\spart\AVITS\avits_login\venv\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 492, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\spart\AVITS\avits_login\venv\Lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=131.0.6778.204)
+Stacktrace:
+	GetHandleVerifier [0x00DAFD53+23747]
+	(No symbol) [0x00D37D54]
+	(No symbol) [0x00C0BE53]
+	(No symbol) [0x00BED91B]
+	(No symbol) [0x00C77EFF]
+	(No symbol) [0x00C8AD49]
+	(No symbol) [0x00C71B96]
+	(No symbol) [0x00C43F3C]
+	(No symbol) [0x00C44EBD]
+	GetHandleVerifier [0x0108AC73+3017699]
+	GetHandleVerifier [0x0109B93B+3086507]
+	GetHandleVerifier [0x010940F2+3055714]
+	GetHandleVerifier [0x00E45AF0+637536]
+	(No symbol) [0x00D40A5D]
+	(No symbol) [0x00D3DA28]
+	(No symbol) [0x00D3DBC5]
+	(No symbol) [0x00D307F0]
+	BaseThreadInitThunk [0x75B25D49+25]
+	RtlInitializeExceptionChain [0x7753E00B+107]
+	RtlGetAppContainerNamedObjectPath [0x7753DF91+561]
+
+2026-08-10 16:24:23,248 [INFO] root:175 - Browser remains open for inspection. Press Enter to close...
+2026-08-11 21:21:59,579 [INFO] root:53 - ============================================================
+2026-08-11 21:21:59,579 [INFO] root:54 - AVITS Login Bot v3 – Stealth Headed Chrome
+2026-08-11 21:21:59,579 [INFO] root:55 - Account: sarfodickson17@gmail.com
+2026-08-11 21:21:59,579 [INFO] root:56 - ============================================================
+2026-08-11 21:21:59,580 [INFO] root:67 - Login attempt 1/3
+2026-08-11 21:21:59,584 [INFO] avits_login_v3.driver_manager:22 - Using fresh Chrome profile: C:\Users\spart\AppData\Local\Temp\avits_bot_wf26w1ni
+2026-08-11 21:21:59,584 [INFO] avits_login_v3.driver_manager:51 - Launching undetected‑chromedriver (headed) with Chrome 131...
+2026-08-11 21:22:25,473 [INFO] avits_login_v3.driver_manager:144 - All stealth patches applied successfully.
+2026-08-11 21:22:25,495 [INFO] avits_login_v3.login_page:29 - Loading https://www.usvisaappt.com/visaapplicantui/login
+2026-08-11 21:23:10,237 [INFO] root:86 - No CAPTCHA detected before login.
+2026-08-11 21:23:10,592 [DEBUG] avits_bot:51 - Typing 24 chars into element input
+2026-08-11 21:23:14,169 [DEBUG] avits_bot:60 - Typing complete
+2026-08-11 21:23:14,169 [INFO] avits_login_v3.login_page:88 - Email entered: sarfodickson17@gmail.com
+2026-08-11 21:23:15,064 [DEBUG] avits_bot:51 - Typing 15 chars into element input
+2026-08-11 21:23:17,032 [DEBUG] avits_bot:60 - Typing complete
+2026-08-11 21:23:17,032 [INFO] avits_login_v3.login_page:102 - Password entered
+2026-08-11 21:23:19,256 [DEBUG] avits_bot:93 - Clicked with human‑like mouse path
+2026-08-11 21:23:19,257 [INFO] avits_login_v3.login_page:128 - Clicked SIGN IN
+2026-08-11 21:23:20,786 [INFO] avits_login_v3.network_listener:49 - Found login API response: HTTP 200
+2026-08-11 21:23:20,786 [INFO] avits_login_v3.network_listener:75 - Tokens extracted. Status: 200
+2026-08-11 21:23:20,786 [DEBUG] avits_login_v3.session_manager:16 - Tokens updated: authorization present = True
+2026-08-11 21:23:20,786 [INFO] root:104 - Tokens captured successfully.
+2026-08-11 21:23:20,866 [ERROR] root:155 - Attempt 1 failed: Unknown login failure
+2026-08-11 21:23:20,866 [INFO] root:157 - Retrying in 10s...
+2026-08-11 21:23:30,869 [INFO] root:67 - Login attempt 2/3
+2026-08-11 21:23:30,870 [INFO] avits_login_v3.driver_manager:22 - Using fresh Chrome profile: C:\Users\spart\AppData\Local\Temp\avits_bot_tykb8g5q
+2026-08-11 21:23:30,871 [INFO] avits_login_v3.driver_manager:51 - Launching undetected‑chromedriver (headed) with Chrome 131...
+2026-08-11 21:23:32,932 [INFO] avits_login_v3.driver_manager:144 - All stealth patches applied successfully.
+2026-08-11 21:23:32,939 [INFO] avits_login_v3.login_page:29 - Loading https://www.usvisaappt.com/visaapplicantui/login
+2026-08-11 21:23:36,901 [ERROR] root:169 - Unexpected error: Message: target frame detached: received Inspector.detached event
+  (failed to check if window was closed: disconnected: Unable to receive message from renderer)
+  (Session info: chrome=131.0.6778.204)
+Stacktrace:
+	GetHandleVerifier [0x00ACFD53+23747]
+	(No symbol) [0x00A57D54]
+	(No symbol) [0x0092BE53]
+	(No symbol) [0x0091E998]
+	(No symbol) [0x0091DBA7]
+	(No symbol) [0x0091D503]
+	(No symbol) [0x0091D43D]
+	(No symbol) [0x0091B8BB]
+	(No symbol) [0x0091BF2D]
+	(No symbol) [0x009281BA]
+	(No symbol) [0x009378B5]
+	(No symbol) [0x0093C726]
+	(No symbol) [0x0091C535]
+	(No symbol) [0x009374E1]
+	(No symbol) [0x009AB778]
+	(No symbol) [0x00991B96]
+	(No symbol) [0x00963F3C]
+	(No symbol) [0x00964EBD]
+	GetHandleVerifier [0x00DAAC73+3017699]
+	GetHandleVerifier [0x00DBB93B+3086507]
+	GetHandleVerifier [0x00DB40F2+3055714]
+	GetHandleVerifier [0x00B65AF0+637536]
+	(No symbol) [0x00A60A5D]
+	(No symbol) [0x00A5DA28]
+	(No symbol) [0x00A5DBC5]
+	(No symbol) [0x00A507F0]
+	BaseThreadInitThunk [0x75B25D49+25]
+	RtlInitializeExceptionChain [0x7753E00B+107]
+	RtlGetAppContainerNamedObjectPath [0x7753DF91+561]
+Traceback (most recent call last):
+  File "C:\Users\spart\AVITS\avits_login\avits_login_v3\main.py", line 79, in main
+    login_page.load()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\spart\AVITS\avits_login\avits_login_v3\login_page.py", line 30, in load
+    self.driver.get(self.login_url)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\spart\AVITS\avits_login\venv\Lib\site-packages\undetected_chromedriver\__init__.py", line 665, in get
+    return super().get(url)
+           ~~~~~~~~~~~^^^^^
+  File "C:\Users\spart\AVITS\avits_login\venv\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 512, in get
+    self.execute(Command.GET, {"url": url})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\spart\AVITS\avits_login\venv\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 492, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\spart\AVITS\avits_login\venv\Lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.WebDriverException: Message: target frame detached: received Inspector.detached event
+  (failed to check if window was closed: disconnected: Unable to receive message from renderer)
+  (Session info: chrome=131.0.6778.204)
+Stacktrace:
+	GetHandleVerifier [0x00ACFD53+23747]
+	(No symbol) [0x00A57D54]
+	(No symbol) [0x0092BE53]
+	(No symbol) [0x0091E998]
+	(No symbol) [0x0091DBA7]
+	(No symbol) [0x0091D503]
+	(No symbol) [0x0091D43D]
+	(No symbol) [0x0091B8BB]
+	(No symbol) [0x0091BF2D]
+	(No symbol) [0x009281BA]
+	(No symbol) [0x009378B5]
+	(No symbol) [0x0093C726]
+	(No symbol) [0x0091C535]
+	(No symbol) [0x009374E1]
+	(No symbol) [0x009AB778]
+	(No symbol) [0x00991B96]
+	(No symbol) [0x00963F3C]
+	(No symbol) [0x00964EBD]
+	GetHandleVerifier [0x00DAAC73+3017699]
+	GetHandleVerifier [0x00DBB93B+3086507]
+	GetHandleVerifier [0x00DB40F2+3055714]
+	GetHandleVerifier [0x00B65AF0+637536]
+	(No symbol) [0x00A60A5D]
+	(No symbol) [0x00A5DA28]
+	(No symbol) [0x00A5DBC5]
+	(No symbol) [0x00A507F0]
+	BaseThreadInitThunk [0x75B25D49+25]
+	RtlInitializeExceptionChain [0x7753E00B+107]
+	RtlGetAppContainerNamedObjectPath [0x7753DF91+561]
+
+2026-08-11 21:23:37,001 [INFO] root:175 - Browser remains open for inspection. Press Enter to close...
+2026-08-11 21:25:47,100 [INFO] root:53 - ============================================================
+2026-08-11 21:25:47,101 [INFO] root:54 - AVITS Login Bot v3 – Stealth Headed Chrome
+2026-08-11 21:25:47,101 [INFO] root:55 - Account: sarfodickson17@gmail.com
+2026-08-11 21:25:47,101 [INFO] root:56 - ============================================================
+2026-08-11 21:25:47,102 [INFO] root:67 - Login attempt 1/3
+2026-08-11 21:25:47,106 [INFO] avits_login_v3.driver_manager:22 - Using fresh Chrome profile: C:\Users\spart\AppData\Local\Temp\avits_bot__d26ig1_
+2026-08-11 21:25:47,106 [INFO] avits_login_v3.driver_manager:51 - Launching undetected‑chromedriver (headed) with Chrome 131...
+2026-08-11 21:25:58,990 [INFO] avits_login_v3.driver_manager:144 - All stealth patches applied successfully.
+2026-08-11 21:25:59,001 [INFO] avits_login_v3.login_page:29 - Loading https://www.usvisaappt.com/visaapplicantui/login
+2026-08-11 21:26:38,474 [INFO] root:86 - No CAPTCHA detected before login.
+2026-08-11 21:26:38,873 [DEBUG] avits_bot:51 - Typing 24 chars into element input
+2026-08-11 21:26:41,814 [DEBUG] avits_bot:60 - Typing complete
+2026-08-11 21:26:41,814 [INFO] avits_login_v3.login_page:88 - Email entered: sarfodickson17@gmail.com
+2026-08-11 21:26:42,863 [DEBUG] avits_bot:51 - Typing 15 chars into element input
+2026-08-11 21:26:44,823 [DEBUG] avits_bot:60 - Typing complete
+2026-08-11 21:26:44,823 [INFO] avits_login_v3.login_page:102 - Password entered
+2026-08-11 21:26:47,212 [DEBUG] avits_bot:93 - Clicked with human‑like mouse path
+2026-08-11 21:26:47,212 [INFO] avits_login_v3.login_page:128 - Clicked SIGN IN
+2026-08-11 21:26:48,753 [INFO] avits_login_v3.network_listener:49 - Found login API response: HTTP 200
+2026-08-11 21:26:48,753 [INFO] avits_login_v3.network_listener:75 - Tokens extracted. Status: 200
+2026-08-11 21:26:48,753 [DEBUG] avits_login_v3.session_manager:16 - Tokens updated: authorization present = True
+2026-08-11 21:26:48,753 [INFO] root:104 - Tokens captured successfully.
+2026-08-11 21:26:48,812 [ERROR] root:155 - Attempt 1 failed: Unknown login failure
+2026-08-11 21:26:48,813 [INFO] root:157 - Retrying in 10s...
+2026-08-11 21:26:58,816 [INFO] root:67 - Login attempt 2/3
+2026-08-11 21:26:58,817 [INFO] avits_login_v3.driver_manager:22 - Using fresh Chrome profile: C:\Users\spart\AppData\Local\Temp\avits_bot_2rkbgmz1
+2026-08-11 21:26:58,817 [INFO] avits_login_v3.driver_manager:51 - Launching undetected‑chromedriver (headed) with Chrome 131...
+2026-08-11 21:27:00,336 [INFO] avits_login_v3.driver_manager:144 - All stealth patches applied successfully.
+2026-08-11 21:27:00,385 [INFO] avits_login_v3.login_page:29 - Loading https://www.usvisaappt.com/visaapplicantui/login
+2026-08-11 21:27:05,879 [WARNING] avits_login_v3.login_page:63 - Angular wait warning: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=131.0.6778.204)
+Stacktrace:
+	GetHandleVerifier [0x0066FD53+23747]
+	(No symbol) [0x005F7D54]
+	(No symbol) [0x004CBE53]
+	(No symbol) [0x004AD91B]
+	(No symbol) [0x00537EFF]
+	(No symbol) [0x0054AD49]
+	(No symbol) [0x00531B96]
+	(No symbol) [0x00503F3C]
+	(No symbol) [0x00504EBD]
+	GetHandleVerifier [0x0094AC73+3017699]
+	GetHandleVerifier [0x0095B93B+3086507]
+	GetHandleVerifier [0x009540F2+3055714]
+	GetHandleVerifier [0x00705AF0+637536]
+	(No symbol) [0x00600A5D]
+	(No symbol) [0x005FDA28]
+	(No symbol) [0x005FDBC5]
+	(No symbol) [0x005F07F0]
+	BaseThreadInitThunk [0x75B25D49+25]
+	RtlInitializeExceptionChain [0x7753E00B+107]
+	RtlGetAppContainerNamedObjectPath [0x7753DF91+561]
+
+2026-08-11 21:27:05,991 [INFO] root:86 - No CAPTCHA detected before login.
+2026-08-11 21:27:05,993 [ERROR] root:169 - Unexpected error: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=131.0.6778.204)
+Stacktrace:
+	GetHandleVerifier [0x0066FD53+23747]
+	(No symbol) [0x005F7D54]
+	(No symbol) [0x004CBE53]
+	(No symbol) [0x004AD91B]
+	(No symbol) [0x00537EFF]
+	(No symbol) [0x0054AD49]
+	(No symbol) [0x00531B96]
+	(No symbol) [0x00503F3C]
+	(No symbol) [0x00504EBD]
+	GetHandleVerifier [0x0094AC73+3017699]
+	GetHandleVerifier [0x0095B93B+3086507]
+	GetHandleVerifier [0x009540F2+3055714]
+	GetHandleVerifier [0x00705AF0+637536]
+	(No symbol) [0x00600A5D]
+	(No symbol) [0x005FDA28]
+	(No symbol) [0x005FDBC5]
+	(No symbol) [0x005F07F0]
+	BaseThreadInitThunk [0x75B25D49+25]
+	RtlInitializeExceptionChain [0x7753E00B+107]
+	RtlGetAppContainerNamedObjectPath [0x7753DF91+561]
+Traceback (most recent call last):
+  File "C:\Users\spart\AVITS\avits_login\avits_login_v3\main.py", line 89, in main
+    login_page.fill_credentials(args.email, args.password)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\spart\AVITS\avits_login\avits_login_v3\login_page.py", line 71, in fill_credentials
+    for elem in self.driver.find_elements(By.CSS_SELECTOR, "input[type='text']"):
+                ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\spart\AVITS\avits_login\venv\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 930, in find_elements
+    return self.execute(Command.FIND_ELEMENTS, {"using": by, "value": value})["value"] or []
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\spart\AVITS\avits_login\venv\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 492, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\spart\AVITS\avits_login\venv\Lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=131.0.6778.204)
+Stacktrace:
+	GetHandleVerifier [0x0066FD53+23747]
+	(No symbol) [0x005F7D54]
+	(No symbol) [0x004CBE53]
+	(No symbol) [0x004AD91B]
+	(No symbol) [0x00537EFF]
+	(No symbol) [0x0054AD49]
+	(No symbol) [0x00531B96]
+	(No symbol) [0x00503F3C]
+	(No symbol) [0x00504EBD]
+	GetHandleVerifier [0x0094AC73+3017699]
+	GetHandleVerifier [0x0095B93B+3086507]
+	GetHandleVerifier [0x009540F2+3055714]
+	GetHandleVerifier [0x00705AF0+637536]
+	(No symbol) [0x00600A5D]
+	(No symbol) [0x005FDA28]
+	(No symbol) [0x005FDBC5]
+	(No symbol) [0x005F07F0]
+	BaseThreadInitThunk [0x75B25D49+25]
+	RtlInitializeExceptionChain [0x7753E00B+107]
+	RtlGetAppContainerNamedObjectPath [0x7753DF91+561]
+
+2026-08-11 21:27:06,006 [INFO] root:175 - Browser remains open for inspection. Press Enter to close...
+2026-08-11 21:49:54,917 [INFO] root:53 - ============================================================
+2026-08-11 21:49:54,918 [INFO] root:54 - AVITS Login Bot v3 – Stealth Headed Chrome
+2026-08-11 21:49:54,918 [INFO] root:55 - Account: sarfodickson17@gmail.com
+2026-08-11 21:49:54,918 [INFO] root:56 - ============================================================
+2026-08-11 21:49:54,919 [INFO] root:67 - Login attempt 1/3
+2026-08-11 21:49:54,920 [INFO] avits_login_v3.driver_manager:22 - Using fresh Chrome profile: C:\Users\spart\AppData\Local\Temp\avits_bot_l44q2cr0
+2026-08-11 21:49:54,920 [INFO] avits_login_v3.driver_manager:51 - Launching undetected‑chromedriver (headed) with Chrome 131...
+2026-08-11 21:50:09,431 [INFO] avits_login_v3.driver_manager:144 - All stealth patches applied successfully.
+2026-08-11 21:50:09,439 [INFO] avits_login_v3.login_page:29 - Loading https://www.usvisaappt.com/visaapplicantui/login
+2026-08-11 21:50:52,733 [INFO] root:86 - No CAPTCHA detected before login.
+2026-08-11 21:50:53,160 [DEBUG] avits_bot:51 - Typing 24 chars into element input
+2026-08-11 21:50:56,150 [DEBUG] avits_bot:60 - Typing complete
+2026-08-11 21:50:56,150 [INFO] avits_login_v3.login_page:88 - Email entered: sarfodickson17@gmail.com
+2026-08-11 21:50:56,985 [DEBUG] avits_bot:51 - Typing 15 chars into element input
+2026-08-11 21:50:58,602 [DEBUG] avits_bot:60 - Typing complete
+2026-08-11 21:50:58,602 [INFO] avits_login_v3.login_page:102 - Password entered
+2026-08-11 21:51:01,035 [DEBUG] avits_bot:93 - Clicked with human‑like mouse path
+2026-08-11 21:51:01,035 [INFO] avits_login_v3.login_page:128 - Clicked SIGN IN
+2026-08-11 21:51:01,551 [INFO] avits_login_v3.network_listener:49 - Found login API response: HTTP 200
+2026-08-11 21:51:01,552 [INFO] avits_login_v3.network_listener:75 - Tokens extracted. Status: 200
+2026-08-11 21:51:01,552 [DEBUG] avits_login_v3.session_manager:16 - Tokens updated: authorization present = True
+2026-08-11 21:51:01,552 [INFO] root:104 - Tokens captured successfully.
+2026-08-11 21:51:01,599 [ERROR] root:155 - Attempt 1 failed: Unknown login failure
+2026-08-11 21:51:01,599 [INFO] root:157 - Retrying in 10s...
+2026-08-11 21:51:11,603 [INFO] root:67 - Login attempt 2/3
+2026-08-11 21:51:11,604 [INFO] avits_login_v3.driver_manager:22 - Using fresh Chrome profile: C:\Users\spart\AppData\Local\Temp\avits_bot_dbup_t51
+2026-08-11 21:51:11,605 [INFO] avits_login_v3.driver_manager:51 - Launching undetected‑chromedriver (headed) with Chrome 131...
+2026-08-11 21:51:12,465 [INFO] avits_login_v3.driver_manager:144 - All stealth patches applied successfully.
+2026-08-11 21:51:12,467 [INFO] avits_login_v3.login_page:29 - Loading https://www.usvisaappt.com/visaapplicantui/login
+2026-08-11 21:51:19,463 [WARNING] avits_login_v3.login_page:63 - Angular wait warning: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=131.0.6778.204)
+Stacktrace:
+	GetHandleVerifier [0x00C8FD53+23747]
+	(No symbol) [0x00C17D54]
+	(No symbol) [0x00AEBE53]
+	(No symbol) [0x00ACD91B]
+	(No symbol) [0x00B57EFF]
+	(No symbol) [0x00B6AD49]
+	(No symbol) [0x00B51B96]
+	(No symbol) [0x00B23F3C]
+	(No symbol) [0x00B24EBD]
+	GetHandleVerifier [0x00F6AC73+3017699]
+	GetHandleVerifier [0x00F7B93B+3086507]
+	GetHandleVerifier [0x00F740F2+3055714]
+	GetHandleVerifier [0x00D25AF0+637536]
+	(No symbol) [0x00C20A5D]
+	(No symbol) [0x00C1DA28]
+	(No symbol) [0x00C1DBC5]
+	(No symbol) [0x00C107F0]
+	BaseThreadInitThunk [0x75B25D49+25]
+	RtlInitializeExceptionChain [0x7753E00B+107]
+	RtlGetAppContainerNamedObjectPath [0x7753DF91+561]
+
+2026-08-11 21:51:19,593 [INFO] root:86 - No CAPTCHA detected before login.
+2026-08-11 21:51:19,595 [ERROR] root:169 - Unexpected error: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=131.0.6778.204)
+Stacktrace:
+	GetHandleVerifier [0x00C8FD53+23747]
+	(No symbol) [0x00C17D54]
+	(No symbol) [0x00AEBE53]
+	(No symbol) [0x00ACD91B]
+	(No symbol) [0x00B57EFF]
+	(No symbol) [0x00B6AD49]
+	(No symbol) [0x00B51B96]
+	(No symbol) [0x00B23F3C]
+	(No symbol) [0x00B24EBD]
+	GetHandleVerifier [0x00F6AC73+3017699]
+	GetHandleVerifier [0x00F7B93B+3086507]
+	GetHandleVerifier [0x00F740F2+3055714]
+	GetHandleVerifier [0x00D25AF0+637536]
+	(No symbol) [0x00C20A5D]
+	(No symbol) [0x00C1DA28]
+	(No symbol) [0x00C1DBC5]
+	(No symbol) [0x00C107F0]
+	BaseThreadInitThunk [0x75B25D49+25]
+	RtlInitializeExceptionChain [0x7753E00B+107]
+	RtlGetAppContainerNamedObjectPath [0x7753DF91+561]
+Traceback (most recent call last):
+  File "C:\Users\spart\AVITS\avits_login\avits_login_v3\main.py", line 89, in main
+    login_page.fill_credentials(args.email, args.password)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\spart\AVITS\avits_login\avits_login_v3\login_page.py", line 71, in fill_credentials
+    for elem in self.driver.find_elements(By.CSS_SELECTOR, "input[type='text']"):
+                ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\spart\AVITS\avits_login\venv\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 930, in find_elements
+    return self.execute(Command.FIND_ELEMENTS, {"using": by, "value": value})["value"] or []
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\spart\AVITS\avits_login\venv\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 492, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\spart\AVITS\avits_login\venv\Lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=131.0.6778.204)
+Stacktrace:
+	GetHandleVerifier [0x00C8FD53+23747]
+	(No symbol) [0x00C17D54]
+	(No symbol) [0x00AEBE53]
+	(No symbol) [0x00ACD91B]
+	(No symbol) [0x00B57EFF]
+	(No symbol) [0x00B6AD49]
+	(No symbol) [0x00B51B96]
+	(No symbol) [0x00B23F3C]
+	(No symbol) [0x00B24EBD]
+	GetHandleVerifier [0x00F6AC73+3017699]
+	GetHandleVerifier [0x00F7B93B+3086507]
+	GetHandleVerifier [0x00F740F2+3055714]
+	GetHandleVerifier [0x00D25AF0+637536]
+	(No symbol) [0x00C20A5D]
+	(No symbol) [0x00C1DA28]
+	(No symbol) [0x00C1DBC5]
+	(No symbol) [0x00C107F0]
+	BaseThreadInitThunk [0x75B25D49+25]
+	RtlInitializeExceptionChain [0x7753E00B+107]
+	RtlGetAppContainerNamedObjectPath [0x7753DF91+561]
+
+2026-08-11 21:51:19,623 [INFO] root:183 - ❌ Login failed. Closing browser...
+2026-08-11 21:51:19,625 [INFO] root:190 - Browser closed.
+2026-08-11 22:06:54,733 [INFO] root:53 - ============================================================
+2026-08-11 22:06:54,734 [INFO] root:54 - AVITS Login Bot v3 – Stealth Headed Chrome
+2026-08-11 22:06:54,734 [INFO] root:55 - Account: sarfodickson17@gmail.com
+2026-08-11 22:06:54,735 [INFO] root:56 - ============================================================
+2026-08-11 22:06:54,735 [INFO] root:67 - Login attempt 1/3
+2026-08-11 22:06:54,737 [INFO] avits_login_v3.driver_manager:22 - Using fresh Chrome profile: C:\Users\spart\AppData\Local\Temp\avits_bot_qnk2115z
+2026-08-11 22:06:54,737 [INFO] avits_login_v3.driver_manager:51 - Launching undetected‑chromedriver (headed) with Chrome 131...
+2026-08-11 22:07:01,008 [INFO] avits_login_v3.driver_manager:144 - All stealth patches applied successfully.
+2026-08-11 22:07:01,035 [INFO] avits_login_v3.login_page:29 - Loading https://www.usvisaappt.com/visaapplicantui/login
+2026-08-11 22:07:10,738 [INFO] root:87 - No CAPTCHA detected before login.
+2026-08-11 22:07:11,119 [DEBUG] avits_bot:51 - Typing 24 chars into element input
+2026-08-11 22:07:14,184 [DEBUG] avits_bot:60 - Typing complete
+2026-08-11 22:07:14,184 [INFO] avits_login_v3.login_page:88 - Email entered: sarfodickson17@gmail.com
+2026-08-11 22:07:15,188 [DEBUG] avits_bot:51 - Typing 15 chars into element input
+2026-08-11 22:07:16,779 [DEBUG] avits_bot:60 - Typing complete
+2026-08-11 22:07:16,779 [INFO] avits_login_v3.login_page:102 - Password entered
+2026-08-11 22:07:19,077 [DEBUG] avits_bot:93 - Clicked with human‑like mouse path
+2026-08-11 22:07:19,077 [INFO] avits_login_v3.login_page:128 - Clicked SIGN IN
+2026-08-11 22:07:20,089 [INFO] avits_login_v3.network_listener:49 - Found login API response: HTTP 200
+2026-08-11 22:07:20,090 [INFO] avits_login_v3.network_listener:75 - Tokens extracted. Status: 200
+2026-08-11 22:07:20,090 [DEBUG] avits_login_v3.session_manager:16 - Tokens updated: authorization present = True
+2026-08-11 22:07:20,090 [INFO] root:105 - Tokens captured successfully.
+2026-08-11 22:07:20,144 [ERROR] root:157 - Attempt 1 failed: Unknown login failure
+2026-08-11 22:07:20,145 [INFO] root:159 - Retrying in 10s...
+2026-08-11 22:07:30,149 [INFO] root:67 - Login attempt 2/3
+2026-08-11 22:07:30,150 [INFO] avits_login_v3.driver_manager:22 - Using fresh Chrome profile: C:\Users\spart\AppData\Local\Temp\avits_bot_lglag81x
+2026-08-11 22:07:30,150 [INFO] avits_login_v3.driver_manager:51 - Launching undetected‑chromedriver (headed) with Chrome 131...
+2026-08-11 22:07:31,489 [INFO] avits_login_v3.driver_manager:144 - All stealth patches applied successfully.
+2026-08-11 22:07:31,527 [INFO] avits_login_v3.login_page:29 - Loading https://www.usvisaappt.com/visaapplicantui/login
+2026-08-11 22:07:39,445 [DEBUG] avits_login_v3.login_page:61 - Angular testability not available
+2026-08-11 22:07:39,461 [INFO] root:87 - No CAPTCHA detected before login.
+2026-08-11 22:07:39,463 [ERROR] root:170 - Unexpected error: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=131.0.6778.204)
+Stacktrace:
+	GetHandleVerifier [0x00C0FD53+23747]
+	(No symbol) [0x00B97D54]
+	(No symbol) [0x00A6BE53]
+	(No symbol) [0x00A4D91B]
+	(No symbol) [0x00AD7EFF]
+	(No symbol) [0x00AEAD49]
+	(No symbol) [0x00AD1B96]
+	(No symbol) [0x00AA3F3C]
+	(No symbol) [0x00AA4EBD]
+	GetHandleVerifier [0x00EEAC73+3017699]
+	GetHandleVerifier [0x00EFB93B+3086507]
+	GetHandleVerifier [0x00EF40F2+3055714]
+	GetHandleVerifier [0x00CA5AF0+637536]
+	(No symbol) [0x00BA0A5D]
+	(No symbol) [0x00B9DA28]
+	(No symbol) [0x00B9DBC5]
+	(No symbol) [0x00B907F0]
+	BaseThreadInitThunk [0x75B25D49+25]
+	RtlInitializeExceptionChain [0x7753E00B+107]
+	RtlGetAppContainerNamedObjectPath [0x7753DF91+561]
+Traceback (most recent call last):
+  File "C:\Users\spart\AVITS\avits_login\avits_login_v3\main.py", line 90, in main
+    login_page.fill_credentials(args.email, args.password)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\spart\AVITS\avits_login\avits_login_v3\login_page.py", line 71, in fill_credentials
+    for elem in self.driver.find_elements(By.CSS_SELECTOR, "input[type='text']"):
+                ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\spart\AVITS\avits_login\venv\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 930, in find_elements
+    return self.execute(Command.FIND_ELEMENTS, {"using": by, "value": value})["value"] or []
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\spart\AVITS\avits_login\venv\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 492, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\spart\AVITS\avits_login\venv\Lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=131.0.6778.204)
+Stacktrace:
+	GetHandleVerifier [0x00C0FD53+23747]
+	(No symbol) [0x00B97D54]
+	(No symbol) [0x00A6BE53]
+	(No symbol) [0x00A4D91B]
+	(No symbol) [0x00AD7EFF]
+	(No symbol) [0x00AEAD49]
+	(No symbol) [0x00AD1B96]
+	(No symbol) [0x00AA3F3C]
+	(No symbol) [0x00AA4EBD]
+	GetHandleVerifier [0x00EEAC73+3017699]
+	GetHandleVerifier [0x00EFB93B+3086507]
+	GetHandleVerifier [0x00EF40F2+3055714]
+	GetHandleVerifier [0x00CA5AF0+637536]
+	(No symbol) [0x00BA0A5D]
+	(No symbol) [0x00B9DA28]
+	(No symbol) [0x00B9DBC5]
+	(No symbol) [0x00B907F0]
+	BaseThreadInitThunk [0x75B25D49+25]
+	RtlInitializeExceptionChain [0x7753E00B+107]
+	RtlGetAppContainerNamedObjectPath [0x7753DF91+561]
+
+2026-08-11 22:07:39,473 [INFO] root:184 - ❌ Login failed. Closing browser...
+2026-08-11 22:07:39,474 [INFO] root:191 - Browser closed.
+2026-08-11 22:13:12,560 [INFO] root:53 - ============================================================
+2026-08-11 22:13:12,560 [INFO] root:54 - AVITS Login Bot v3 – Stealth Headed Chrome
+2026-08-11 22:13:12,560 [INFO] root:55 - Account: sarfodickson17@gmail.com
+2026-08-11 22:13:12,561 [INFO] root:56 - ============================================================
+2026-08-11 22:13:12,561 [INFO] root:67 - Login attempt 1/3
+2026-08-11 22:13:12,564 [INFO] avits_login_v3.driver_manager:22 - Using fresh Chrome profile: C:\Users\spart\AppData\Local\Temp\avits_bot_qz_u8x5g
+2026-08-11 22:13:12,564 [INFO] avits_login_v3.driver_manager:51 - Launching undetected‑chromedriver (headed) with Chrome 131...
+2026-08-11 22:13:21,044 [INFO] avits_login_v3.driver_manager:144 - All stealth patches applied successfully.
+2026-08-11 22:13:21,058 [INFO] avits_login_v3.login_page:28 - Loading https://www.usvisaappt.com/visaapplicantui/login
+2026-08-11 22:13:43,566 [INFO] root:87 - No CAPTCHA detected before login.
+2026-08-11 22:13:43,867 [DEBUG] avits_bot:51 - Typing 24 chars into element input
+2026-08-11 22:13:46,801 [DEBUG] avits_bot:60 - Typing complete
+2026-08-11 22:13:46,801 [INFO] avits_login_v3.login_page:87 - Email entered: sarfodickson17@gmail.com
+2026-08-11 22:13:47,554 [DEBUG] avits_bot:51 - Typing 15 chars into element input
+2026-08-11 22:13:49,798 [DEBUG] avits_bot:60 - Typing complete
+2026-08-11 22:13:49,798 [INFO] avits_login_v3.login_page:101 - Password entered
+2026-08-11 22:13:52,460 [DEBUG] avits_bot:93 - Clicked with human‑like mouse path
+2026-08-11 22:13:52,460 [INFO] avits_login_v3.login_page:127 - Clicked SIGN IN
+2026-08-11 22:13:52,976 [INFO] avits_login_v3.network_listener:49 - Found login API response: HTTP 200
+2026-08-11 22:13:52,976 [INFO] avits_login_v3.network_listener:75 - Tokens extracted. Status: 200
+2026-08-11 22:13:52,977 [DEBUG] avits_login_v3.session_manager:16 - Tokens updated: authorization present = True
+2026-08-11 22:13:52,977 [INFO] root:105 - Tokens captured successfully.
+2026-08-11 22:13:55,027 [INFO] avits_login_v3.login_page:136 - Dashboard URL detected: https://www.usvisaappt.com/visaapplicantui/home/dashboard/requests
+2026-08-11 22:13:55,027 [INFO] root:111 - Dashboard loaded – login successful.
+2026-08-11 22:13:55,060 [INFO] avits_login_v3.result_saver:21 - Results saved to avits_login_result.json
+2026-08-11 22:13:55,061 [INFO] root:149 - ============================================================
+2026-08-11 22:13:55,061 [INFO] root:150 - LOGIN SUCCESSFUL
+2026-08-11 22:13:55,061 [INFO] root:153 - JWT: eyJraWQiOiIvQlYrQ0Yrc0tNVVkxNGFxVVc5dkNXa3NQWnMwU1BoUFdDcXpR...
+2026-08-11 22:13:55,061 [INFO] root:154 - ============================================================
+2026-08-11 22:13:55,062 [INFO] root:179 - ✅ Login successful! Browser remains open for inspection.
+2026-08-11 22:13:55,062 [INFO] root:180 - Press Enter in this terminal to close the browser and exit...

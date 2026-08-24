@@ -1,0 +1,49 @@
+{
+  "timestamp": "2026-08-11T22:13:55.059505",
+  "email": "sarfodickson17@gmail.com",
+  "tokens": {
+    "authorization_header": "eyJraWQiOiIvQlYrQ0Yrc0tNVVkxNGFxVVc5dkNXa3NQWnMwU1BoUFdDcXpRUUduc0xrPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI3Mjg1NThjYi02OTc3LTQwYWQtOGNlMS0xZWViYWE1NDBkMDEiLCJjb2duaXRvOmdyb3VwcyI6WyJBcHBsaWNhbnQiXSwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJpc3MiOiJodHRwczovL2NvZ25pdG8taWRwLnVzLWdvdi13ZXN0LTEuYW1hem9uYXdzLmNvbS91cy1nb3Ytd2VzdC0xX3Q5SmY0MnRZdyIsImNvZ25pdG86dXNlcm5hbWUiOiJzYXJmb2RpY2tzb24xN0BnbWFpbC5jb20iLCJjdXN0b206dXNlcklkIjoiMzkwODI3MiIsIm9yaWdpbl9qdGkiOiIwYzdlM2VjMi1iZjVlLTQyOTItYTdjNS04MjY5NTAyOWFkOWEiLCJhdWQiOiI3cWliNTZrdWs5NXNwOGxjam1qaGZyZXVndCIsImV2ZW50X2lkIjoiMmQxYWQ3ZjEtYjQ0OS00NDdlLTlmZGQtY2JmNDkyN2M5MDU5IiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE3ODY0ODY0MzIsImV4cCI6MTc4NjQ5MDAzMiwiaWF0IjoxNzg2NDg2NDMyLCJqdGkiOiIxNjlmM2FhMC1hMWUxLTRiYzItYWExYi01ZGRkYjMzNTM2N2MiLCJlbWFpbCI6InNhcmZvZGlja3NvbjE3QGdtYWlsLmNvbSJ9.Fjmns3LAh-tdenZLHw71ISNDIr7O7Ol9oKa6fhw5pu2nMPewcpyrnqyu79KR2dGHHCiKDKsX42C3NOf3AAzEH7p7s3omyd0FpVeVVj1Jq7p1NoufnP6x5fULvM_BuDfuWbWfFJvkYuYzBa51QdRY2ibCHu834WjpcO9TqME_wgUL1W_eQ-Vxfq8RwUPtd9vsQlcWBQdyfdcPE8uRclFPiTevcGTLaQ60Rh_LK2BbA0OorjOt4p2viKincXd9IVlkyrjI40E9rdwzA0nhQsMzIS9BWEwjl2jf02adA65vOq0n4Mxt-FqsgDt7_HhAhLAcF3R6LV1CMQPV_A7XLhMt6w",
+    "refresh_token": "eyJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAifQ.ZPUtvVd8-wHWyxhkn7kSyCqVQ_8jsyIjzWOqsSb_08nyGE8ZGnoRIQXJcw_11Tf5Fpyt1IsEzML6zQFNxO-L-ZifQEBH01gSTdH9nmd0Y21RiH1ijqaTbOzB5T6E4Nwj-i6Y_49pF7lpiZXOJtTckWodR6je9T0sid7HxgX_E7j5Kv6SEJhmYdwksu7-0iEe1iJhiDObKbIoNGwvFi79m70xhfTH1TmaDUIkKPvqb0j9GSipSE9LXjzoxepQ87OIILdfbn5Jh9jbLyX-n-M-POBRB3cgCQ9uUQY_kdsKlyL3thdQa4Pdx4-Rwm1j6yQ_yBWz2w8WsSfLQsyNt-SmEw.uX2eINicDh1AGGdZ.rV3Y2f1ylaAOGMKgCY_1LGpIiELn7pwROULU2Si-PSDugsZx6z8hLPS7wZFkfOQBO-v6teBAIENfIb2KpJc2R1HI9ul4ulmbQhdPPNUAEb4MabK3d3xjCrTeF6uX8jjeIJwbOoGEJJxRjqds3M3RzuywJsg5-w4cYhwt_NT8at_Vm9ciaXr4kehGcVx5JJOMjxikt84kCElIfcTrdNsl03kbYsRQE06aLIXeD9qv7bkH9C9YscV9sFPjrQcJjbmnwnMbwt_Ls1vWITVkLEn_z4jXMToaHlw-O--zP9lEfwHy0oviOybzpE1xIYY_wGQCzbsytmct8dvVM77JA4jV5vsx_mX-sV21y1oJkM75MBFl4ApdMaDCXslrJVbz8TuTA9mJRQOs5JXogUqAe_WGySZEmlMKLbskRkhSLiaGVxSlh78yLEPzo6tjD-SERp95vNpgsImBPsthr-nbmr3bNi0hXy-ruWDqCCY6aoNwCPApP144olfn-NFG-NVoqNhFnnCjgYYFpytl8r8BcZ3owg4M7U5K_Ab2gukI0ElfSl2yQjs_665cOOl4qRDtOCPrhM4dXF0DwKyFuwR5iMEjfm5KYpANhKDPqJhpnET8j-nNLMSmiltTJU0N1Uit1Lc4-iZp4yIbNjYQafqV6qCA6hkss6K45K9rjQIzKZOasS1nqM6QR6zIJfQyAgduMP2eZB5YQtobGfqARtw0m4J6jU-6RKAFxqiRyilYKpPN9fcIjS10lGrI2WidR6W_a9R_tQ_fWz-M1tqizczGhOkgGInTsKzYrZKGicJtmIwAqLvdMuuF6pJP0Zokr1Tk12DlEPQMkwDQJvQH3ebRawKTDZNOm-AG_0x_DtmTRZhU2iv34lBm4ACzT_flldPMxA40dItS7iW_jLxQR-5J4M4p-Hq54YLzmCYAOYLPRGOgds6VQFtu5rcYvup90RTVnBPWm4ReRAWbdsJ8T1V3jzKc5fP7vs867IXNN-Ek9K9elI9zyZ3dQUGZSp7EPQkl-VpcIhNgB-PxnMn2YzkdHSzaeK2zgV25W4rdRulvnB7wZh5pGjNlGBPrBT2V9-JgVHoqgj9DzZprK11yzykZ06KoMRaZjB6yobt0ka8xEO6pATTAdIkHmm4kYPER1pqagN0IBO5kQJPWzL4tDrZiYVS6v3MCcYeY6VyGUUXjMQ_o08wQw0Uvw6syiOh_uaonQshWSw4qsu7x-m2tHUzquFPgFp2gAhoZLqt--15-VNyno0EVcWdahKs9DDNkcGhC3JR7Uo3DCAKSZSFf0UumZwhBKdTmULmbE7U3wSRdvVds0l-4RQ.kDmlKiVTu0uuoAOj_z-SuQ",
+    "csrf_token": "",
+    "status_code": 200,
+    "url": "https://www.usvisaappt.com/identity/user/login"
+  },
+  "session": {
+    "url": "https://www.usvisaappt.com/visaapplicantui/home/dashboard/requests",
+    "title": "AVITS My Dashboard",
+    "cookies": [
+      {
+        "domain": ".usvisaappt.com",
+        "expiry": 1821046407,
+        "httpOnly": false,
+        "name": "_ga",
+        "path": "/",
+        "sameSite": "Strict",
+        "secure": true,
+        "value": "GA1.1.1540056783.1786486408"
+      },
+      {
+        "domain": ".usvisaappt.com",
+        "expiry": 1821046407,
+        "httpOnly": false,
+        "name": "_ga_CSLL4ZEK4L",
+        "path": "/",
+        "sameSite": "Strict",
+        "secure": true,
+        "value": "GS2.1.s1786486407$o1$g0$t1786486407$j60$l0$h0"
+      }
+    ],
+    "localStorage": {
+      "CSRFTOKEN": "null",
+      "LanguageId": "1",
+      "_expiredTimeApplicant": "1786487333263",
+      "isExpdite": "Show",
+      "loggedInApplicantUser": "{\"userName\":\"sarfodickson17@gmail.com\",\"msg\":null,\"mfa\":false,\"userID\":3908272,\"fullName\":\"DICKSON SARFO ADDAI\",\"firstTimeLogin\":false,\"isActive\":\"ACTIVE\",\"defaultIdleTimeOut\":15,\"uuid\":\"68b813fe-a791-4e9b-a207-10c4e87e34b6\",\"userAssociateTotpDeviceQRCode\":null,\"softwareTokenMfaEnabled\":false,\"adminMfaSetupEnabled\":false,\"session\":null,\"accessToken\":null,\"totpVerification\":false,\"refreshToken\":null,\"idToken\":null,\"mission\":null,\"post\":[],\"ofc\":[],\"userType\":\"APPLICANT\"}",
+      "showedPasswordpopup": "true"
+    },
+    "sessionStorage": {
+      "AuthToken": "eyJraWQiOiIvQlYrQ0Yrc0tNVVkxNGFxVVc5dkNXa3NQWnMwU1BoUFdDcXpRUUduc0xrPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI3Mjg1NThjYi02OTc3LTQwYWQtOGNlMS0xZWViYWE1NDBkMDEiLCJjb2duaXRvOmdyb3VwcyI6WyJBcHBsaWNhbnQiXSwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJpc3MiOiJodHRwczovL2NvZ25pdG8taWRwLnVzLWdvdi13ZXN0LTEuYW1hem9uYXdzLmNvbS91cy1nb3Ytd2VzdC0xX3Q5SmY0MnRZdyIsImNvZ25pdG86dXNlcm5hbWUiOiJzYXJmb2RpY2tzb24xN0BnbWFpbC5jb20iLCJjdXN0b206dXNlcklkIjoiMzkwODI3MiIsIm9yaWdpbl9qdGkiOiIwYzdlM2VjMi1iZjVlLTQyOTItYTdjNS04MjY5NTAyOWFkOWEiLCJhdWQiOiI3cWliNTZrdWs5NXNwOGxjam1qaGZyZXVndCIsImV2ZW50X2lkIjoiMmQxYWQ3ZjEtYjQ0OS00NDdlLTlmZGQtY2JmNDkyN2M5MDU5IiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE3ODY0ODY0MzIsImV4cCI6MTc4NjQ5MDAzMiwiaWF0IjoxNzg2NDg2NDMyLCJqdGkiOiIxNjlmM2FhMC1hMWUxLTRiYzItYWExYi01ZGRkYjMzNTM2N2MiLCJlbWFpbCI6InNhcmZvZGlja3NvbjE3QGdtYWlsLmNvbSJ9.Fjmns3LAh-tdenZLHw71ISNDIr7O7Ol9oKa6fhw5pu2nMPewcpyrnqyu79KR2dGHHCiKDKsX42C3NOf3AAzEH7p7s3omyd0FpVeVVj1Jq7p1NoufnP6x5fULvM_BuDfuWbWfFJvkYuYzBa51QdRY2ibCHu834WjpcO9TqME_wgUL1W_eQ-Vxfq8RwUPtd9vsQlcWBQdyfdcPE8uRclFPiTevcGTLaQ60Rh_LK2BbA0OorjOt4p2viKincXd9IVlkyrjI40E9rdwzA0nhQsMzIS9BWEwjl2jf02adA65vOq0n4Mxt-FqsgDt7_HhAhLAcF3R6LV1CMQPV_A7XLhMt6w",
+      "refreshtoken": "eyJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAifQ.ZPUtvVd8-wHWyxhkn7kSyCqVQ_8jsyIjzWOqsSb_08nyGE8ZGnoRIQXJcw_11Tf5Fpyt1IsEzML6zQFNxO-L-ZifQEBH01gSTdH9nmd0Y21RiH1ijqaTbOzB5T6E4Nwj-i6Y_49pF7lpiZXOJtTckWodR6je9T0sid7HxgX_E7j5Kv6SEJhmYdwksu7-0iEe1iJhiDObKbIoNGwvFi79m70xhfTH1TmaDUIkKPvqb0j9GSipSE9LXjzoxepQ87OIILdfbn5Jh9jbLyX-n-M-POBRB3cgCQ9uUQY_kdsKlyL3thdQa4Pdx4-Rwm1j6yQ_yBWz2w8WsSfLQsyNt-SmEw.uX2eINicDh1AGGdZ.rV3Y2f1ylaAOGMKgCY_1LGpIiELn7pwROULU2Si-PSDugsZx6z8hLPS7wZFkfOQBO-v6teBAIENfIb2KpJc2R1HI9ul4ulmbQhdPPNUAEb4MabK3d3xjCrTeF6uX8jjeIJwbOoGEJJxRjqds3M3RzuywJsg5-w4cYhwt_NT8at_Vm9ciaXr4kehGcVx5JJOMjxikt84kCElIfcTrdNsl03kbYsRQE06aLIXeD9qv7bkH9C9YscV9sFPjrQcJjbmnwnMbwt_Ls1vWITVkLEn_z4jXMToaHlw-O--zP9lEfwHy0oviOybzpE1xIYY_wGQCzbsytmct8dvVM77JA4jV5vsx_mX-sV21y1oJkM75MBFl4ApdMaDCXslrJVbz8TuTA9mJRQOs5JXogUqAe_WGySZEmlMKLbskRkhSLiaGVxSlh78yLEPzo6tjD-SERp95vNpgsImBPsthr-nbmr3bNi0hXy-ruWDqCCY6aoNwCPApP144olfn-NFG-NVoqNhFnnCjgYYFpytl8r8BcZ3owg4M7U5K_Ab2gukI0ElfSl2yQjs_665cOOl4qRDtOCPrhM4dXF0DwKyFuwR5iMEjfm5KYpANhKDPqJhpnET8j-nNLMSmiltTJU0N1Uit1Lc4-iZp4yIbNjYQafqV6qCA6hkss6K45K9rjQIzKZOasS1nqM6QR6zIJfQyAgduMP2eZB5YQtobGfqARtw0m4J6jU-6RKAFxqiRyilYKpPN9fcIjS10lGrI2WidR6W_a9R_tQ_fWz-M1tqizczGhOkgGInTsKzYrZKGicJtmIwAqLvdMuuF6pJP0Zokr1Tk12DlEPQMkwDQJvQH3ebRawKTDZNOm-AG_0x_DtmTRZhU2iv34lBm4ACzT_flldPMxA40dItS7iW_jLxQR-5J4M4p-Hq54YLzmCYAOYLPRGOgds6VQFtu5rcYvup90RTVnBPWm4ReRAWbdsJ8T1V3jzKc5fP7vs867IXNN-Ek9K9elI9zyZ3dQUGZSp7EPQkl-VpcIhNgB-PxnMn2YzkdHSzaeK2zgV25W4rdRulvnB7wZh5pGjNlGBPrBT2V9-JgVHoqgj9DzZprK11yzykZ06KoMRaZjB6yobt0ka8xEO6pATTAdIkHmm4kYPER1pqagN0IBO5kQJPWzL4tDrZiYVS6v3MCcYeY6VyGUUXjMQ_o08wQw0Uvw6syiOh_uaonQshWSw4qsu7x-m2tHUzquFPgFp2gAhoZLqt--15-VNyno0EVcWdahKs9DDNkcGhC3JR7Uo3DCAKSZSFf0UumZwhBKdTmULmbE7U3wSRdvVds0l-4RQ.kDmlKiVTu0uuoAOj_z-SuQ"
+    }
+  }
+}
