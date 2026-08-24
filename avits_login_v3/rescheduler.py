@@ -1,4 +1,4 @@
-# rescheduler.py – BEFORE range scans all months with short timeout, stable_time=0.5
+# rescheduler.py – optimised BEFORE (single attempt, 2s timeout), fast‑track booking, dynamic waits
 import logging
 import time
 from typing import Dict, Any, Optional, List, Tuple
@@ -20,8 +20,9 @@ from .config import load_config
 logger = logging.getLogger(__name__)
 
 # ---- TIMING CONSTANTS ----
-STABILITY_TIMEOUT = 1.5      # seconds
-STABLE_TIME = 0.4            # seconds
+STABILITY_TIMEOUT = 1.0      # seconds – how long to wait for calendar to stabilise
+STABLE_TIME = 0.5           # seconds – required unchanged state duration
+NAVIGATION_TIMEOUT = 2.0     # seconds – single attempt for BEFORE navigation
 # -------------------------
 
 class Rescheduler:
@@ -33,7 +34,7 @@ class Rescheduler:
         self.calendar = CalendarManager(driver, session_manager)
         self.executor = BookingExecutor(driver, session_manager)
         self.max_polls = config.get("max_polls", 2000)
-        self.poll_interval = config.get("poll_interval", 2)
+        self.poll_interval = config.get("poll_interval", 2)          # kept as fallback info
         self.email = config.get("email")
         self.password = config.get("password")
         self.location = config.get("location", "Accra")
@@ -159,43 +160,14 @@ class Rescheduler:
                 continue
 
             elif cur_year < start_year or (cur_year == start_year and cur_month < start_month):
-                # BEFORE range: scan all target months with a short timeout (3s)
-                print("   🔄 Current month is BEFORE target range – scanning target months...")
-                target_date = None
-                for year, month in target_months:
-                    print(f"      📆 Checking {year}-{month:02d}...")
-                    # Use navigator directly with 3-second timeout
-                    if not self.calendar.navigator.navigate_to(year, month, overall_timeout=3.0):
-                        print(f"      ⚠️ Could not navigate to {year}-{month:02d}, skipping")
-                        continue
-                    green_dates = self.calendar.get_available_green_dates(stable_time=STABLE_TIME)
-                    if green_dates:
-                        print(f"      Found {len(green_dates)} green dates: {green_dates[:5]}...")
-                        for d in green_dates:
-                            if self.date_range["from"] <= d <= self.date_range["to"]:
-                                target_date = d
-                                print(f"      ✅ Found target date: {target_date}")
-                                break
-                    else:
-                        print(f"      No green dates")
-                    if target_date:
-                        break
-
-                if target_date:
-                    print(f"\n⚡ Attempting fast booking for {target_date}...")
-                    booking_result = self._attempt_booking(target_date)
-                    if booking_result.get("success"):
-                        print(f"\n✅✅✅ BOOKING SUCCESSFUL! ✅✅✅")
-                        print(f"   Date: {target_date}")
-                        print(f"   Time: {booking_result.get('time')}")
-                        self.executor.logout()
-                        return {"success": True, "date": target_date, "time": booking_result.get('time')}
-                    else:
-                        error = booking_result.get('error', 'Unknown error')
-                        print(f"   ❌ Booking attempt failed: {error}")
-                        print("   🔄 Will refresh and continue polling...")
+                # BEFORE range: attempt to navigate to start month once (2s timeout)
+                print("   🔄 Current month is BEFORE target range – attempting to navigate to start month (1 attempt only, 2s timeout)...")
+                start_year, start_month = target_months[0]
+                if self.calendar.navigator.navigate_to(start_year, start_month, overall_timeout=NAVIGATION_TIMEOUT):
+                    print("   ✅ Successfully navigated to start month, continuing scan...")
+                    # Now we are on the start month; fall through to scanning
                 else:
-                    print("   ❌ No green dates in target months – refreshing...")
+                    print("   ❌ Could not navigate to start month – refreshing...")
                     self.calendar.refresh_calendar(self.location)
                     self.calendar.wait_for_calendar_stable(timeout=STABILITY_TIMEOUT, stable_time=STABLE_TIME)
                     continue
@@ -258,6 +230,7 @@ class Rescheduler:
                 print("   [~] Refreshing calendar...")
                 self.calendar.refresh_calendar(self.location)
                 self.calendar.wait_for_calendar_stable(timeout=STABILITY_TIMEOUT, stable_time=STABLE_TIME)
+                # Loop immediately (no fixed sleep)
 
         return {"success": False, "error": "Max polls reached"}
 
@@ -265,14 +238,23 @@ class Rescheduler:
     # FAST‑TRACK BOOKING ATTEMPT
     # ------------------------------------------------------------------
     def _attempt_booking(self, target_date: str) -> Dict[str, Any]:
+        """
+        Attempt to book the given date as fast as possible.
+        Returns {'success': bool, 'time': str|None, 'error': str|None}
+        """
+        # 1. Select the date (green) – this is quick and includes a short wait for stability
         if not self.calendar.select_date_ui(target_date):
             return {"success": False, "error": "Could not select date (maybe not clickable?)"}
+
+        # 2. Wait for time slots container to appear – short timeout, high poll frequency
         try:
             container = WebDriverWait(self.driver, timeout=3, poll_frequency=0.1).until(
                 EC.presence_of_element_located((By.CSS_SELECTOR, ".booking-time-buttons.slot_calender"))
             )
         except TimeoutException:
             return {"success": False, "error": "Time slots did not appear within 3 seconds"}
+
+        # 3. Immediately get the first available time slot
         try:
             time_buttons = container.find_elements(By.CSS_SELECTOR, "button.green-button")
             visible_enabled = [btn for btn in time_buttons if btn.is_displayed() and btn.is_enabled()]
@@ -283,10 +265,15 @@ class Rescheduler:
                 return {"success": False, "error": "Time slot text empty"}
         except Exception as e:
             return {"success": False, "error": f"Error reading time slots: {e}"}
+
+        # 4. Click the time slot – fast, no extra sleeps
         try:
             visible_enabled[0].click()
         except Exception as e:
             return {"success": False, "error": f"Could not click time slot: {e}"}
+
+        # 5. Delegate to booking executor for confirmation and final steps
+        #    skip_time_selection=True because we already clicked the slot.
         try:
             result = self.executor.book_appointment(target_date, selected_time, skip_time_selection=True)
             if result.get("success"):
@@ -297,7 +284,7 @@ class Rescheduler:
             return {"success": False, "error": f"Booking executor exception: {e}"}
 
     # ------------------------------------------------------------------
-    # HELPER METHODS (unchanged)
+    # Existing helper methods (unchanged)
     # ------------------------------------------------------------------
     def _is_logged_out(self) -> bool:
         try:

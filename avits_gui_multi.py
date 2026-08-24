@@ -150,13 +150,27 @@ class AVITSMultiBotGUI:
         self.status_label.config(text="Status: Stopped")
         self.log_queue.put("⏹️ Stop requested")
     
+    # ---- UPDATED: _run_orchestrator() - works in source and packaged mode ----
     def _run_orchestrator(self, account_id=None):
         try:
-            cmd = [sys.executable, "run_orchestrator.py"]
-            if account_id:
-                cmd.extend(["--account", account_id])
+            # Determine the base directory
+            if getattr(sys, 'frozen', False):
+                # Running as packaged exe – orchestrator exe is in the same folder
+                base_dir = os.path.dirname(sys.executable)
+                orchestrator_exe = os.path.join(base_dir, 'AVITS_Orchestrator.exe')
+                cmd = [orchestrator_exe]
             else:
-                cmd.append("--run-all")
+                # Running from source – use Python to run the orchestrator script
+                base_dir = os.path.dirname(os.path.abspath(__file__))
+                script_path = os.path.join(base_dir, 'run_orchestrator.py')
+                cmd = [sys.executable, script_path]
+
+            # Add account argument if provided
+            if account_id:
+                cmd.extend(['--account', account_id])
+            else:
+                cmd.append('--run-all')
+
             self.log_queue.put(f"🔵 Running: {' '.join(cmd)}")
             self.process = subprocess.Popen(
                 cmd,
@@ -164,7 +178,7 @@ class AVITSMultiBotGUI:
                 stderr=subprocess.STDOUT,
                 text=True,
                 bufsize=1,
-                cwd=os.path.dirname(os.path.abspath(__file__)),
+                cwd=base_dir,
                 encoding='utf-8'
             )
             for line in self.process.stdout:
@@ -181,6 +195,7 @@ class AVITSMultiBotGUI:
         self.process = None
         self.status_label.config(text="Status: Idle")
         self.log_queue.put("🔵 Session finished")
+    # ================================================================
     
     # ================================================================
     # ACCOUNT MANAGEMENT
