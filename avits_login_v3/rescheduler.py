@@ -20,8 +20,8 @@ from .config import load_config
 logger = logging.getLogger(__name__)
 
 # ---- TIMING CONSTANTS ----
-STABILITY_TIMEOUT = 1.0      # seconds – how long to wait for calendar to stabilise
-STABLE_TIME = 0.5           # seconds – required unchanged state duration
+STABILITY_TIMEOUT = 1.5      # seconds – how long to wait for calendar to stabilise
+STABLE_TIME = 0.5            # seconds – required unchanged state duration
 NAVIGATION_TIMEOUT = 2.0     # seconds – single attempt for BEFORE navigation
 # -------------------------
 
@@ -324,6 +324,7 @@ class Rescheduler:
             logger.error(f"Login error: {e}")
             return False
 
+    # ---- UPDATED: _restart_browser_and_relogin() with stability wait ----
     def _restart_browser_and_relogin(self) -> bool:
         try:
             if self.driver:
@@ -331,12 +332,17 @@ class Rescheduler:
                     self.driver.quit()
                 except:
                     pass
+
             print("[*] Restarting browser...")
             self.driver = init_driver(self.config)
+
             print("[*] Logging in again...")
             if not self._perform_login():
                 return False
+
             print("[+] Relogin successful!")
+
+            # Re‑navigate to the reschedule page
             self.navigator = RescheduleNavigator(self.driver, self.session)
             if not self.navigator.go_to_my_appointment():
                 return False
@@ -344,6 +350,15 @@ class Rescheduler:
                 return False
             if not self.navigator.select_location(self.location):
                 return False
+
+            # ---- Wait for calendar to stabilise after relogin ----
+            print("[~] Waiting for calendar to stabilise after relogin...")
+            stable = self.calendar.wait_for_calendar_stable(timeout=STABILITY_TIMEOUT, stable_time=STABLE_TIME)
+            if stable:
+                print("[~] Calendar stable after relogin")
+            else:
+                print("[~] Calendar stability timeout, proceeding anyway")
+
             print("[+] Navigation to reschedule page completed")
             return True
         except Exception as e:
