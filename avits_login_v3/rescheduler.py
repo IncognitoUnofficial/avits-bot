@@ -1,4 +1,4 @@
-# rescheduler.py – optimised BEFORE (single attempt, 2s timeout), fast‑track booking, dynamic waits
+# rescheduler.py – optimised BEFORE, fast‑track booking, dynamic waits, skip navigation if already on reschedule page
 import logging
 import time
 from typing import Dict, Any, Optional, List, Tuple
@@ -74,6 +74,7 @@ class Rescheduler:
         if not target_months:
             return {"success": False, "error": "Invalid date range"}
 
+        # ---- LOGIN (if needed) ----
         if not self.session.is_authenticated():
             print("[1] Logging in...")
             if not self._perform_login():
@@ -81,22 +82,26 @@ class Rescheduler:
             print("[+] Login successful!")
             time.sleep(0.5)
 
-        print("[2] Navigating to My Appointments...")
-        if not self.navigator.go_to_my_appointment():
-            return {"success": False, "error": "Could not navigate to My Appointments"}
-        print("✅ Navigated to My Appointments")
-        time.sleep(0.3)
+        # ---- NAVIGATION (skip if already on reschedule page) ----
+        if self.navigator.is_on_reschedule_page():
+            print("   ✅ Already on reschedule page, skipping navigation...")
+        else:
+            print("[2] Navigating to My Appointments...")
+            if not self.navigator.go_to_my_appointment():
+                return {"success": False, "error": "Could not navigate to My Appointments"}
+            print("✅ Navigated to My Appointments")
+            time.sleep(0.3)
 
-        print("[3] Clicking Reschedule...")
-        if not self.navigator.click_reschedule():
-            return {"success": False, "error": "Could not click Reschedule"}
-        print("✅ Clicked Reschedule")
-        time.sleep(0.3)
+            print("[3] Clicking Reschedule...")
+            if not self.navigator.click_reschedule():
+                return {"success": False, "error": "Could not click Reschedule"}
+            print("✅ Clicked Reschedule")
+            time.sleep(0.3)
 
-        print(f"[4] Selecting location: {self.location}...")
-        if not self.navigator.select_location(self.location):
-            return {"success": False, "error": f"Could not select location: {self.location}"}
-        print(f"✅ Selected location: {self.location}")
+            print(f"[4] Selecting location: {self.location}...")
+            if not self.navigator.select_location(self.location):
+                return {"success": False, "error": f"Could not select location: {self.location}"}
+            print(f"✅ Selected location: {self.location}")
 
         # ---- Initial stability ----
         print("[~] Waiting for initial calendar stability...")
@@ -106,6 +111,7 @@ class Rescheduler:
         else:
             print("[~] Initial stability timeout, proceeding anyway")
 
+        # ---- Polling loop ----
         polls = 0
         while polls < self.max_polls:
             polls += 1
@@ -284,7 +290,7 @@ class Rescheduler:
             return {"success": False, "error": f"Booking executor exception: {e}"}
 
     # ------------------------------------------------------------------
-    # Existing helper methods (unchanged)
+    # Helper methods
     # ------------------------------------------------------------------
     def _is_logged_out(self) -> bool:
         try:
@@ -324,7 +330,6 @@ class Rescheduler:
             logger.error(f"Login error: {e}")
             return False
 
-    # ---- UPDATED: _restart_browser_and_relogin() with stability wait ----
     def _restart_browser_and_relogin(self) -> bool:
         try:
             if self.driver:
@@ -342,7 +347,7 @@ class Rescheduler:
 
             print("[+] Relogin successful!")
 
-            # Re‑navigate to the reschedule page
+            # Re‑navigate to the reschedule page (will be skipped later if already there)
             self.navigator = RescheduleNavigator(self.driver, self.session)
             if not self.navigator.go_to_my_appointment():
                 return False
@@ -351,7 +356,7 @@ class Rescheduler:
             if not self.navigator.select_location(self.location):
                 return False
 
-            # ---- Wait for calendar to stabilise after relogin ----
+            # Wait for calendar to stabilise after relogin
             print("[~] Waiting for calendar to stabilise after relogin...")
             stable = self.calendar.wait_for_calendar_stable(timeout=STABILITY_TIMEOUT, stable_time=STABLE_TIME)
             if stable:
