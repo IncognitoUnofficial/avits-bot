@@ -1,4 +1,4 @@
-# session_pool.py – with concurrency limit and no emojis
+# session_pool.py – with concurrency limit, no emojis, includes booking_mode
 import logging
 import time
 import threading
@@ -45,7 +45,8 @@ class AccountSession:
                 "date_range": self.account.get("date_range", {"from": "2026-09-01", "to": "2026-11-30"}),
                 "poll_interval": self.config.get("poll_interval", 5),
                 "max_polls": self.config.get("max_polls", 660),
-                "keep_open": self.config.get("keep_open", False)
+                "keep_open": self.config.get("keep_open", False),
+                "booking_mode": self.account.get("booking_mode", "reschedule"),   # <-- added
             }
             self.rescheduler = Rescheduler(
                 self.session_manager,
@@ -88,6 +89,7 @@ class AccountSession:
             "email": self.account.get("email"),
             "location": self.account.get("location"),
             "date_range": self.account.get("date_range"),
+            "booking_mode": self.account.get("booking_mode", "reschedule"),  # optional, for info
             "is_running": self.is_running,
             "is_complete": self.is_complete,
             "success": self.result.get("success") if self.result else False,

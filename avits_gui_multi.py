@@ -86,7 +86,8 @@ class AVITSMultiBotGUI:
             status = "🟢" if acc.get("active") else "🔴"
             dr = acc.get("date_range", {})
             date_str = f"{dr.get('from', 'N/A')} → {dr.get('to', 'N/A')}"
-            display = f"{status} {acc.get('email')} ({acc.get('location', 'Accra')}) [{date_str}]"
+            mode = acc.get("booking_mode", "reschedule")
+            display = f"{status} {acc.get('email')} ({acc.get('location', 'Accra')}) [{date_str}] [mode:{mode}]"
             self.account_listbox.insert(tk.END, display)
     
     def get_selected_account(self):
@@ -155,17 +156,14 @@ class AVITSMultiBotGUI:
         try:
             # Determine the base directory
             if getattr(sys, 'frozen', False):
-                # Running as packaged exe – orchestrator exe is in the same folder
                 base_dir = os.path.dirname(sys.executable)
                 orchestrator_exe = os.path.join(base_dir, 'AVITS_Orchestrator.exe')
                 cmd = [orchestrator_exe]
             else:
-                # Running from source – use Python to run the orchestrator script
                 base_dir = os.path.dirname(os.path.abspath(__file__))
                 script_path = os.path.join(base_dir, 'run_orchestrator.py')
                 cmd = [sys.executable, script_path]
 
-            # Add account argument if provided
             if account_id:
                 cmd.extend(['--account', account_id])
             else:
@@ -195,7 +193,6 @@ class AVITSMultiBotGUI:
         self.process = None
         self.status_label.config(text="Status: Idle")
         self.log_queue.put("🔵 Session finished")
-    # ================================================================
     
     # ================================================================
     # ACCOUNT MANAGEMENT
@@ -214,7 +211,7 @@ class AVITSMultiBotGUI:
     def add_account_dialog(self):
         dialog = tk.Toplevel(self.root)
         dialog.title("Add Account")
-        dialog.geometry("450x400")
+        dialog.geometry("450x480")
         dialog.transient(self.root)
         dialog.grab_set()
         
@@ -241,12 +238,18 @@ class AVITSMultiBotGUI:
         to_entry.insert(0, "2026-11-30")
         to_entry.grid(row=4, column=1, padx=10, pady=10)
         
+        ttk.Label(dialog, text="Booking Mode:").grid(row=5, column=0, padx=10, pady=10, sticky="e")
+        mode_var = tk.StringVar(value="reschedule")
+        mode_combo = ttk.Combobox(dialog, textvariable=mode_var, values=["reschedule", "new"], width=32)
+        mode_combo.grid(row=5, column=1, padx=10, pady=10)
+        
         def save_account():
             email = email_entry.get().strip()
             password = pass_entry.get().strip()
             location = loc_var.get()
             from_date = from_entry.get().strip()
             to_date = to_entry.get().strip()
+            booking_mode = mode_var.get()
             if not email or not password:
                 messagebox.showwarning("Missing Fields", "Email and password are required.")
                 return
@@ -254,14 +257,15 @@ class AVITSMultiBotGUI:
                 email=email,
                 password=password,
                 location=location,
-                date_range={"from": from_date, "to": to_date}
+                date_range={"from": from_date, "to": to_date},
+                booking_mode=booking_mode
             )
             dialog.destroy()
             self.load_accounts()
             messagebox.showinfo("Success", f"Added account: {email}")
         
         btn_frame = ttk.Frame(dialog)
-        btn_frame.grid(row=5, column=0, columnspan=2, pady=20)
+        btn_frame.grid(row=6, column=0, columnspan=2, pady=20)
         ttk.Button(btn_frame, text="➕ Add Account", command=save_account).pack(side=tk.LEFT, padx=5)
         ttk.Button(btn_frame, text="Cancel", command=dialog.destroy).pack(side=tk.LEFT, padx=5)
     
@@ -273,7 +277,7 @@ class AVITSMultiBotGUI:
         
         dialog = tk.Toplevel(self.root)
         dialog.title("Edit Account")
-        dialog.geometry("450x400")
+        dialog.geometry("450x480")
         dialog.transient(self.root)
         dialog.grab_set()
         
@@ -303,12 +307,18 @@ class AVITSMultiBotGUI:
         to_entry.insert(0, dr.get("to", "2026-11-30"))
         to_entry.grid(row=4, column=1, padx=10, pady=10)
         
+        ttk.Label(dialog, text="Booking Mode:").grid(row=5, column=0, padx=10, pady=10, sticky="e")
+        mode_var = tk.StringVar(value=account.get("booking_mode", "reschedule"))
+        mode_combo = ttk.Combobox(dialog, textvariable=mode_var, values=["reschedule", "new"], width=32)
+        mode_combo.grid(row=5, column=1, padx=10, pady=10)
+        
         def save_edit():
             email = email_entry.get().strip()
             password = pass_entry.get().strip()
             location = loc_var.get()
             from_date = from_entry.get().strip()
             to_date = to_entry.get().strip()
+            booking_mode = mode_var.get()
             if not email or not password:
                 messagebox.showwarning("Missing Fields", "Email and password are required.")
                 return
@@ -316,14 +326,15 @@ class AVITSMultiBotGUI:
                 "email": email,
                 "password": password,
                 "location": location,
-                "date_range": {"from": from_date, "to": to_date}
+                "date_range": {"from": from_date, "to": to_date},
+                "booking_mode": booking_mode
             })
             dialog.destroy()
             self.load_accounts()
             messagebox.showinfo("Success", f"Updated account: {email}")
         
         btn_frame = ttk.Frame(dialog)
-        btn_frame.grid(row=5, column=0, columnspan=2, pady=20)
+        btn_frame.grid(row=6, column=0, columnspan=2, pady=20)
         ttk.Button(btn_frame, text="💾 Save Changes", command=save_edit).pack(side=tk.LEFT, padx=5)
         ttk.Button(btn_frame, text="Cancel", command=dialog.destroy).pack(side=tk.LEFT, padx=5)
     

@@ -9,7 +9,8 @@
                 "from": "2026-09-01",
                 "to": "2026-11-30"
             },
-            "active": true
+            "active": true,
+            "booking_mode": "reschedule"
         },
         {
             "id": "acc_2",
@@ -20,7 +21,8 @@
                 "from": "2026-09-01",
                 "to": "2026-11-30"
             },
-            "active": true
+            "active": true,
+            "booking_mode": "reschedule"
         },
         {
             "id": "acc_3",
@@ -31,7 +33,20 @@
                 "from": "2026-09-01",
                 "to": "2026-11-30"
             },
-            "active": true
+            "active": true,
+            "booking_mode": "reschedule"
+        },
+        {
+            "id": "acc_4",
+            "email": "pbayor60@gmail.com",
+            "password": "Travelgh@2026",
+            "location": "Accra",
+            "date_range": {
+                "from": "2026-09-01",
+                "to": "2026-11-30"
+            },
+            "active": true,
+            "booking_mode": "new"
         }
     ],
     "global": {

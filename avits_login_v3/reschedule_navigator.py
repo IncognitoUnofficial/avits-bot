@@ -1,4 +1,4 @@
-# reschedule_navigator.py
+# reschedule_navigator.py – faster version (keeps reliability, reduces timeouts)
 import logging
 import time
 from urllib.parse import urlparse, parse_qs
@@ -16,11 +16,8 @@ class RescheduleNavigator:
         self.driver = driver
         self.session = session
 
-    # ----- MODIFIED: go_to_my_appointment() with retries and longer timeout -----
+    # ----- Existing: go_to_my_appointment() -----
     def go_to_my_appointment(self, timeout: int = 20, retries: int = 3):
-        """
-        Navigate to My Appointment page with retries and explicit wait for UI.
-        """
         for attempt in range(retries):
             try:
                 wait = WebDriverWait(self.driver, timeout)
@@ -46,8 +43,6 @@ class RescheduleNavigator:
                 if not clicked:
                     raise TimeoutException("No clickable My Appointments button found")
 
-                # Wait for the dashboard UI to be ready (My Appointments button visible again? Actually we want the reschedule button maybe)
-                # But to be safe, we wait for a known element on the dashboard page
                 WebDriverWait(self.driver, timeout).until(
                     EC.visibility_of_element_located((By.XPATH, "//*[contains(text(), 'RESCHEDULE')]"))
                 )
@@ -71,14 +66,9 @@ class RescheduleNavigator:
                 else:
                     return False
         return False
-    # ----------------------------------------------------------------
 
-    # ----- MODIFIED: click_reschedule() with retries and longer timeout -----
+    # ----- Existing: click_reschedule() -----
     def click_reschedule(self, timeout: int = 25, retries: int = 3):
-        """
-        Click RESCHEDULE and extract applicantId/appUUID from URL.
-        Retries up to 'retries' times.
-        """
         for attempt in range(retries):
             try:
                 wait = WebDriverWait(self.driver, timeout)
@@ -111,14 +101,13 @@ class RescheduleNavigator:
                 if not btn_clicked:
                     raise TimeoutException("No visible/enabled RESCHEDULE button found")
 
-                # ---- HANDLE CONFIRMATION POPUP (unchanged logic) ----
+                # Handle confirmation popup
                 try:
                     dialog = wait.until(
                         EC.presence_of_element_located((By.CSS_SELECTOR, "mat-dialog-container"))
                     )
                     logger.info("Confirmation dialog detected")
                     time.sleep(0.5)
-                    # Method 1: Find Confirm button by text
                     try:
                         confirm_btn = self.driver.find_element(
                             By.XPATH, "//button//span[contains(text(), 'Confirm')]"
@@ -131,7 +120,6 @@ class RescheduleNavigator:
                         time.sleep(2)
                     except Exception as e:
                         logger.warning(f"Method 1 failed: {e}")
-                        # Method 2: Find by class
                         try:
                             confirm_btn = self.driver.find_element(
                                 By.CSS_SELECTOR, "button.mat-raised-button .mat-button-wrapper"
@@ -144,7 +132,6 @@ class RescheduleNavigator:
                             time.sleep(2)
                         except Exception as e2:
                             logger.warning(f"Method 2 failed: {e2}")
-                            # Method 3: JavaScript click
                             try:
                                 confirm_btn = self.driver.find_element(
                                     By.XPATH, "//button[contains(@class, 'mat-raised-button')]//span[contains(text(), 'Confirm')]/.."
@@ -154,7 +141,6 @@ class RescheduleNavigator:
                                 time.sleep(2)
                             except Exception as e3:
                                 logger.error(f"All methods failed to click Confirm: {e3}")
-                                # If popup appears but we can't click Confirm, we treat it as failure and retry
                                 if attempt < retries - 1:
                                     time.sleep(2)
                                     continue
@@ -162,11 +148,10 @@ class RescheduleNavigator:
                                     return False
                 except Exception as e:
                     logger.debug(f"No confirmation popup found: {e}")
-                # -----------------------------------------------------
 
-                # ---- WAIT FOR RESCHEDULE PAGE TO LOAD (with increased patience) ----
+                # Wait for reschedule page to load
                 page_loaded = False
-                max_wait = timeout  # use the same timeout value
+                max_wait = timeout
                 start_time = time.time()
                 while time.time() - start_time < max_wait:
                     current_url = self.driver.current_url
@@ -174,7 +159,6 @@ class RescheduleNavigator:
                         logger.info(f"Reschedule page loaded: {current_url}")
                         page_loaded = True
                         break
-                    # Check for dropdown or header
                     try:
                         dropdown = self.driver.find_element(
                             By.XPATH, "//*[contains(text(), '-- Select --')]"
@@ -196,7 +180,6 @@ class RescheduleNavigator:
                     time.sleep(0.5)
 
                 if page_loaded:
-                    # ---- EXTRACT IDs FROM URL ----
                     current_url = self.driver.current_url
                     parsed = urlparse(current_url)
                     params = parse_qs(parsed.query)
@@ -207,7 +190,6 @@ class RescheduleNavigator:
                     return True
                 else:
                     logger.warning("Reschedule page may not have loaded correctly")
-                    # Still consider it a success if we got this far? We'll treat as failure to retry.
                     if attempt < retries - 1:
                         time.sleep(2)
                         continue
@@ -230,20 +212,14 @@ class RescheduleNavigator:
                 else:
                     return False
         return False
-    # ---------------------------------------------------------------
 
-    # ----- MODIFIED: select_location() with retries and longer initial wait -----
+    # ----- Existing: select_location() -----
     def select_location(self, location: str = "Accra", timeout: int = 25, retries: int = 2):
-        """
-        Select a location from the dropdown on the reschedule page.
-        Retries up to 'retries' times.
-        """
         for attempt in range(retries):
             try:
                 wait = WebDriverWait(self.driver, timeout)
-                time.sleep(5)  # increased initial wait
+                time.sleep(5)
 
-                # Method 1: Click dropdown and select
                 try:
                     dropdown_triggers = [
                         "//*[contains(text(), '-- Select --')]",
@@ -275,7 +251,6 @@ class RescheduleNavigator:
                 except Exception as e:
                     logger.warning(f"Method 1 failed: {e}")
 
-                # Method 2: Try using a select element directly
                 try:
                     selects = self.driver.find_elements(By.TAG_NAME, "select")
                     for select in selects:
@@ -308,8 +283,89 @@ class RescheduleNavigator:
                 else:
                     return False
         return False
-    # ----------------------------------------------------------------
 
+    # ----- Existing: is_on_reschedule_page() -----
     def is_on_reschedule_page(self) -> bool:
-        """Check if we're on the reschedule page."""
         return "slot" in self.driver.current_url or "appointment" in self.driver.current_url
+
+    # ----- UPDATED: go_to_pending_appointment() – combined XPath, 15s timeout -----
+    def go_to_pending_appointment(self, timeout: int = 15) -> bool:
+        """
+        From the dashboard, click the 'Pending Appointment Request' button/link.
+        Uses a single combined XPath to find any matching button quickly.
+        """
+        try:
+            wait = WebDriverWait(self.driver, timeout)
+            combined_xpath = "//*[contains(text(), 'Pending Appointment Request')] | " \
+                             "//*[contains(text(), 'PENDING APPOINTMENT REQUEST')] | " \
+                             "//button[contains(@class, 'pending')] | " \
+                             "//a[contains(@href, 'appointment')]//*[contains(text(), 'Pending')] | " \
+                             "//*[contains(@class, 'pending-appointment')]"
+            
+            elem = wait.until(EC.element_to_be_clickable((By.XPATH, combined_xpath)))
+            self.driver.execute_script("arguments[0].scrollIntoView({block: 'center', behavior: 'smooth'});", elem)
+            time.sleep(0.3)
+            elem.click()
+            logger.info("Clicked Pending Appointment Request")
+            time.sleep(2)
+            return True
+        except Exception as e:
+            logger.error(f"Error navigating to Pending Appointment Request: {e}")
+            return False
+
+    # ----- UPDATED: select_applicant() – faster version with reliable selector -----
+    def select_applicant(self, index: int = 0, timeout: int = 12) -> bool:
+        """
+        On the booking page, select the checkbox for the applicant at the given index (default first).
+        Targets the <span class="checkbox"> which is the clickable element.
+        """
+        try:
+            wait = WebDriverWait(self.driver, timeout)
+            
+            # Wait for the applicant table to be present (shorter wait)
+            wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "table.table")))
+            time.sleep(0.5)
+            
+            # Try multiple selector strategies (ordered by reliability)
+            selectors = [
+                # Strategy 1: Click the span directly (most reliable)
+                f"(//div[@class='custom-checkbox']//span[@class='checkbox'])[{index+1}]",
+                
+                # Strategy 2: Click the span inside the first row
+                "//table[contains(@class, 'table')]//tbody//tr[1]//div[@class='custom-checkbox']//span[@class='checkbox']",
+                
+                # Strategy 3: Click the label/span within the custom-checkbox div
+                f"(//div[@class='custom-checkbox']//span)[{index+1}]",
+                
+                # Strategy 4: Click the input itself
+                f"(//div[@class='custom-checkbox']//input[@type='checkbox'])[{index+1}]",
+            ]
+            
+            for selector in selectors:
+                try:
+                    checkbox_span = wait.until(EC.element_to_be_clickable((By.XPATH, selector)))
+                    self.driver.execute_script("arguments[0].scrollIntoView({block: 'center', behavior: 'smooth'});", checkbox_span)
+                    time.sleep(0.2)
+                    checkbox_span.click()
+                    logger.info(f"Selected applicant checkbox using selector: {selector}")
+                    time.sleep(0.5)
+                    return True
+                except Exception as e:
+                    logger.debug(f"Selector {selector} failed: {e}")
+                    continue
+            
+            # If all fail, try clicking the parent div
+            try:
+                checkbox_div = wait.until(EC.element_to_be_clickable((By.XPATH, f"(//div[@class='custom-checkbox'])[{index+1}]")))
+                self.driver.execute_script("arguments[0].scrollIntoView({block: 'center', behavior: 'smooth'});", checkbox_div)
+                time.sleep(0.2)
+                checkbox_div.click()
+                logger.info("Selected applicant by clicking the custom-checkbox div")
+                return True
+            except Exception as e:
+                logger.error(f"All selector strategies failed: {e}")
+                return False
+            
+        except Exception as e:
+            logger.error(f"Error selecting applicant: {e}")
+            return False

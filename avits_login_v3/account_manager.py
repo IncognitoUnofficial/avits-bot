@@ -1,4 +1,4 @@
-# account_manager.py
+# account_manager.py – with booking_mode support
 import json
 import os
 import logging
@@ -48,6 +48,15 @@ class AccountManager:
                         json.dump(data, f, indent=4)
                     logger.info("Applied default global settings to accounts.json")
                 
+                # ---- NEW: ensure each account has booking_mode (default: reschedule) ----
+                for acc in self.accounts:
+                    if "booking_mode" not in acc:
+                        acc["booking_mode"] = "reschedule"
+                # If we added any booking_mode fields, save the file
+                with open(self.config_path, 'w', encoding='utf-8') as f:
+                    json.dump(data, f, indent=4)
+                # ------------------------------------------------------------
+                
                 logger.info(f"Loaded {len(self.accounts)} accounts")
         except Exception as e:
             logger.error(f"Failed to load accounts: {e}")
@@ -88,7 +97,8 @@ class AccountManager:
         return None
     
     def add_account(self, email: str, password: str, location: str = "Accra", 
-                    date_range: Optional[Dict[str, str]] = None) -> Dict[str, Any]:
+                    date_range: Optional[Dict[str, str]] = None,
+                    booking_mode: str = "reschedule") -> Dict[str, Any]:
         """Add a new account."""
         account = {
             "id": f"acc_{len(self.accounts) + 1}",
@@ -96,11 +106,12 @@ class AccountManager:
             "password": password,
             "location": location,
             "date_range": date_range or {"from": "2026-09-01", "to": "2026-11-30"},
-            "active": True
+            "active": True,
+            "booking_mode": booking_mode   # <-- added
         }
         self.accounts.append(account)
         self.save_accounts()
-        logger.info(f"Added account: {email}")
+        logger.info(f"Added account: {email} (mode: {booking_mode})")
         return account
     
     def remove_account(self, account_id: str) -> bool:
