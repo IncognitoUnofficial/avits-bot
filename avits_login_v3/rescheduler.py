@@ -1,4 +1,4 @@
-# rescheduler.py – optimised BEFORE, fast‑track booking, dynamic waits, skip navigation if already on reschedule page
+# rescheduler.py – stable version, navigation replaced for new appointment path
 import logging
 import time
 from typing import Dict, Any, Optional, List, Tuple
@@ -34,7 +34,7 @@ class Rescheduler:
         self.calendar = CalendarManager(driver, session_manager)
         self.executor = BookingExecutor(driver, session_manager)
         self.max_polls = config.get("max_polls", 2000)
-        self.poll_interval = config.get("poll_interval", 2)          # kept as fallback info
+        self.poll_interval = config.get("poll_interval", 2)
         self.email = config.get("email")
         self.password = config.get("password")
         self.location = config.get("location", "Accra")
@@ -82,26 +82,16 @@ class Rescheduler:
             print("[+] Login successful!")
             time.sleep(0.5)
 
-        # ---- NAVIGATION (skip if already on reschedule page) ----
-        if self.navigator.is_on_reschedule_page():
-            print("   ✅ Already on reschedule page, skipping navigation...")
-        else:
-            print("[2] Navigating to My Appointments...")
-            if not self.navigator.go_to_my_appointment():
-                return {"success": False, "error": "Could not navigate to My Appointments"}
-            print("✅ Navigated to My Appointments")
-            time.sleep(0.3)
+        # ---- NAVIGATION FOR NEW APPOINTMENT PATH ----
+        print("[2] Navigating to Pending Appointment Request...")
+        if not self.navigator.go_to_pending_appointment():
+            return {"success": False, "error": "Could not navigate to Pending Appointment Request"}
+        print("✅ Navigated to booking page")
 
-            print("[3] Clicking Reschedule...")
-            if not self.navigator.click_reschedule():
-                return {"success": False, "error": "Could not click Reschedule"}
-            print("✅ Clicked Reschedule")
-            time.sleep(0.3)
-
-            print(f"[4] Selecting location: {self.location}...")
-            if not self.navigator.select_location(self.location):
-                return {"success": False, "error": f"Could not select location: {self.location}"}
-            print(f"✅ Selected location: {self.location}")
+        print("[3] Selecting applicant...")
+        if not self.navigator.select_applicant():
+            return {"success": False, "error": "Could not select applicant"}
+        print("✅ Applicant selected")
 
         # ---- Initial stability ----
         print("[~] Waiting for initial calendar stability...")
@@ -111,7 +101,7 @@ class Rescheduler:
         else:
             print("[~] Initial stability timeout, proceeding anyway")
 
-        # ---- Polling loop ----
+        # ---- Polling loop (unchanged) ----
         polls = 0
         while polls < self.max_polls:
             polls += 1
@@ -171,7 +161,6 @@ class Rescheduler:
                 start_year, start_month = target_months[0]
                 if self.calendar.navigator.navigate_to(start_year, start_month, overall_timeout=NAVIGATION_TIMEOUT):
                     print("   ✅ Successfully navigated to start month, continuing scan...")
-                    # Now we are on the start month; fall through to scanning
                 else:
                     print("   ❌ Could not navigate to start month – refreshing...")
                     self.calendar.refresh_calendar(self.location)
@@ -236,7 +225,6 @@ class Rescheduler:
                 print("   [~] Refreshing calendar...")
                 self.calendar.refresh_calendar(self.location)
                 self.calendar.wait_for_calendar_stable(timeout=STABILITY_TIMEOUT, stable_time=STABLE_TIME)
-                # Loop immediately (no fixed sleep)
 
         return {"success": False, "error": "Max polls reached"}
 
@@ -244,23 +232,14 @@ class Rescheduler:
     # FAST‑TRACK BOOKING ATTEMPT
     # ------------------------------------------------------------------
     def _attempt_booking(self, target_date: str) -> Dict[str, Any]:
-        """
-        Attempt to book the given date as fast as possible.
-        Returns {'success': bool, 'time': str|None, 'error': str|None}
-        """
-        # 1. Select the date (green) – this is quick and includes a short wait for stability
         if not self.calendar.select_date_ui(target_date):
             return {"success": False, "error": "Could not select date (maybe not clickable?)"}
-
-        # 2. Wait for time slots container to appear – short timeout, high poll frequency
         try:
             container = WebDriverWait(self.driver, timeout=3, poll_frequency=0.1).until(
                 EC.presence_of_element_located((By.CSS_SELECTOR, ".booking-time-buttons.slot_calender"))
             )
         except TimeoutException:
             return {"success": False, "error": "Time slots did not appear within 3 seconds"}
-
-        # 3. Immediately get the first available time slot
         try:
             time_buttons = container.find_elements(By.CSS_SELECTOR, "button.green-button")
             visible_enabled = [btn for btn in time_buttons if btn.is_displayed() and btn.is_enabled()]
@@ -271,15 +250,10 @@ class Rescheduler:
                 return {"success": False, "error": "Time slot text empty"}
         except Exception as e:
             return {"success": False, "error": f"Error reading time slots: {e}"}
-
-        # 4. Click the time slot – fast, no extra sleeps
         try:
             visible_enabled[0].click()
         except Exception as e:
             return {"success": False, "error": f"Could not click time slot: {e}"}
-
-        # 5. Delegate to booking executor for confirmation and final steps
-        #    skip_time_selection=True because we already clicked the slot.
         try:
             result = self.executor.book_appointment(target_date, selected_time, skip_time_selection=True)
             if result.get("success"):
@@ -290,7 +264,7 @@ class Rescheduler:
             return {"success": False, "error": f"Booking executor exception: {e}"}
 
     # ------------------------------------------------------------------
-    # Helper methods
+    # Helper methods (unchanged)
     # ------------------------------------------------------------------
     def _is_logged_out(self) -> bool:
         try:
@@ -337,17 +311,12 @@ class Rescheduler:
                     self.driver.quit()
                 except:
                     pass
-
             print("[*] Restarting browser...")
             self.driver = init_driver(self.config)
-
             print("[*] Logging in again...")
             if not self._perform_login():
                 return False
-
             print("[+] Relogin successful!")
-
-            # Re‑navigate to the reschedule page (will be skipped later if already there)
             self.navigator = RescheduleNavigator(self.driver, self.session)
             if not self.navigator.go_to_my_appointment():
                 return False
@@ -355,15 +324,6 @@ class Rescheduler:
                 return False
             if not self.navigator.select_location(self.location):
                 return False
-
-            # Wait for calendar to stabilise after relogin
-            print("[~] Waiting for calendar to stabilise after relogin...")
-            stable = self.calendar.wait_for_calendar_stable(timeout=STABILITY_TIMEOUT, stable_time=STABLE_TIME)
-            if stable:
-                print("[~] Calendar stable after relogin")
-            else:
-                print("[~] Calendar stability timeout, proceeding anyway")
-
             print("[+] Navigation to reschedule page completed")
             return True
         except Exception as e:
