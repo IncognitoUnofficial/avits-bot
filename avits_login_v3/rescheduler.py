@@ -1,4 +1,4 @@
-# rescheduler.py – optimised BEFORE, fast‑track booking, dynamic waits, NEW APPOINTMENT PATH
+# rescheduler.py – new appointment path only, original polling & fast‑booking logic unchanged
 import logging
 import time
 from typing import Dict, Any, Optional, List, Tuple
@@ -92,7 +92,11 @@ class Rescheduler:
         if not self.navigator.select_applicant():
             return {"success": False, "error": "Could not select applicant"}
         print("✅ Applicant selected")
-        # Now the calendar is visible; proceed to stability wait and polling
+
+        print(f"[4] Selecting location: {self.location}...")
+        if not self.navigator.select_location(self.location):
+            return {"success": False, "error": f"Could not select location: {self.location}"}
+        print(f"✅ Selected location: {self.location}")
 
         # ---- Initial stability ----
         print("[~] Waiting for initial calendar stability...")
@@ -316,9 +320,6 @@ class Rescheduler:
             return False
 
     def _restart_browser_and_relogin(self) -> bool:
-        """
-        Restart browser, relogin, and navigate to the booking page using the new appointment path.
-        """
         try:
             if self.driver:
                 try:
@@ -337,16 +338,12 @@ class Rescheduler:
 
             # Re‑navigate using the new appointment path
             self.navigator = RescheduleNavigator(self.driver, self.session)
-            
-            print("[*] Navigating to Pending Appointment Request...")
             if not self.navigator.go_to_pending_appointment():
                 return False
-            print("[*] Navigating to booking page...")
-            
-            print("[*] Selecting applicant...")
             if not self.navigator.select_applicant():
                 return False
-            print("[*] Applicant selected")
+            if not self.navigator.select_location(self.location):
+                return False
 
             # Wait for calendar to stabilise after relogin
             print("[~] Waiting for calendar to stabilise after relogin...")

@@ -43,6 +43,28 @@
                 "to": "2026-11-30"
             },
             "active": true
+        },
+        {
+            "id": "acc_5",
+            "email": "calebmartey10@yahoo.com",
+            "password": "Cpplication@caleb2",
+            "location": "Accra",
+            "date_range": {
+                "from": "2026-09-01",
+                "to": "2026-11-30"
+            },
+            "active": true
+        },
+        {
+            "id": "acc_6",
+            "email": "Kathy_williams81@yahoo.com",
+            "password": "Wiseman@0276",
+            "location": "Accra",
+            "date_range": {
+                "from": "2026-09-01",
+                "to": "2026-11-30"
+            },
+            "active": true
         }
     ],
     "global": {
