@@ -1,4 +1,4 @@
-# rescheduler.py – stable version, navigation replaced for new appointment path
+# rescheduler.py – optimised BEFORE, fast‑track booking, dynamic waits, NEW APPOINTMENT PATH
 import logging
 import time
 from typing import Dict, Any, Optional, List, Tuple
@@ -34,7 +34,7 @@ class Rescheduler:
         self.calendar = CalendarManager(driver, session_manager)
         self.executor = BookingExecutor(driver, session_manager)
         self.max_polls = config.get("max_polls", 2000)
-        self.poll_interval = config.get("poll_interval", 2)
+        self.poll_interval = config.get("poll_interval", 2)          # kept as fallback info
         self.email = config.get("email")
         self.password = config.get("password")
         self.location = config.get("location", "Accra")
@@ -82,7 +82,7 @@ class Rescheduler:
             print("[+] Login successful!")
             time.sleep(0.5)
 
-        # ---- NAVIGATION FOR NEW APPOINTMENT PATH ----
+        # ---- NAVIGATION: NEW APPOINTMENT PATH ----
         print("[2] Navigating to Pending Appointment Request...")
         if not self.navigator.go_to_pending_appointment():
             return {"success": False, "error": "Could not navigate to Pending Appointment Request"}
@@ -92,6 +92,7 @@ class Rescheduler:
         if not self.navigator.select_applicant():
             return {"success": False, "error": "Could not select applicant"}
         print("✅ Applicant selected")
+        # Now the calendar is visible; proceed to stability wait and polling
 
         # ---- Initial stability ----
         print("[~] Waiting for initial calendar stability...")
@@ -101,7 +102,7 @@ class Rescheduler:
         else:
             print("[~] Initial stability timeout, proceeding anyway")
 
-        # ---- Polling loop (unchanged) ----
+        # ---- Polling loop ----
         polls = 0
         while polls < self.max_polls:
             polls += 1
@@ -161,6 +162,7 @@ class Rescheduler:
                 start_year, start_month = target_months[0]
                 if self.calendar.navigator.navigate_to(start_year, start_month, overall_timeout=NAVIGATION_TIMEOUT):
                     print("   ✅ Successfully navigated to start month, continuing scan...")
+                    # Now we are on the start month; fall through to scanning
                 else:
                     print("   ❌ Could not navigate to start month – refreshing...")
                     self.calendar.refresh_calendar(self.location)
@@ -225,6 +227,7 @@ class Rescheduler:
                 print("   [~] Refreshing calendar...")
                 self.calendar.refresh_calendar(self.location)
                 self.calendar.wait_for_calendar_stable(timeout=STABILITY_TIMEOUT, stable_time=STABLE_TIME)
+                # Loop immediately (no fixed sleep)
 
         return {"success": False, "error": "Max polls reached"}
 
@@ -232,14 +235,20 @@ class Rescheduler:
     # FAST‑TRACK BOOKING ATTEMPT
     # ------------------------------------------------------------------
     def _attempt_booking(self, target_date: str) -> Dict[str, Any]:
+        """
+        Attempt to book the given date as fast as possible.
+        Returns {'success': bool, 'time': str|None, 'error': str|None}
+        """
         if not self.calendar.select_date_ui(target_date):
             return {"success": False, "error": "Could not select date (maybe not clickable?)"}
+
         try:
             container = WebDriverWait(self.driver, timeout=3, poll_frequency=0.1).until(
                 EC.presence_of_element_located((By.CSS_SELECTOR, ".booking-time-buttons.slot_calender"))
             )
         except TimeoutException:
             return {"success": False, "error": "Time slots did not appear within 3 seconds"}
+
         try:
             time_buttons = container.find_elements(By.CSS_SELECTOR, "button.green-button")
             visible_enabled = [btn for btn in time_buttons if btn.is_displayed() and btn.is_enabled()]
@@ -250,10 +259,12 @@ class Rescheduler:
                 return {"success": False, "error": "Time slot text empty"}
         except Exception as e:
             return {"success": False, "error": f"Error reading time slots: {e}"}
+
         try:
             visible_enabled[0].click()
         except Exception as e:
             return {"success": False, "error": f"Could not click time slot: {e}"}
+
         try:
             result = self.executor.book_appointment(target_date, selected_time, skip_time_selection=True)
             if result.get("success"):
@@ -264,7 +275,7 @@ class Rescheduler:
             return {"success": False, "error": f"Booking executor exception: {e}"}
 
     # ------------------------------------------------------------------
-    # Helper methods (unchanged)
+    # Helper methods
     # ------------------------------------------------------------------
     def _is_logged_out(self) -> bool:
         try:
@@ -305,26 +316,47 @@ class Rescheduler:
             return False
 
     def _restart_browser_and_relogin(self) -> bool:
+        """
+        Restart browser, relogin, and navigate to the booking page using the new appointment path.
+        """
         try:
             if self.driver:
                 try:
                     self.driver.quit()
                 except:
                     pass
+
             print("[*] Restarting browser...")
             self.driver = init_driver(self.config)
+
             print("[*] Logging in again...")
             if not self._perform_login():
                 return False
+
             print("[+] Relogin successful!")
+
+            # Re‑navigate using the new appointment path
             self.navigator = RescheduleNavigator(self.driver, self.session)
-            if not self.navigator.go_to_my_appointment():
+            
+            print("[*] Navigating to Pending Appointment Request...")
+            if not self.navigator.go_to_pending_appointment():
                 return False
-            if not self.navigator.click_reschedule():
+            print("[*] Navigating to booking page...")
+            
+            print("[*] Selecting applicant...")
+            if not self.navigator.select_applicant():
                 return False
-            if not self.navigator.select_location(self.location):
-                return False
-            print("[+] Navigation to reschedule page completed")
+            print("[*] Applicant selected")
+
+            # Wait for calendar to stabilise after relogin
+            print("[~] Waiting for calendar to stabilise after relogin...")
+            stable = self.calendar.wait_for_calendar_stable(timeout=STABILITY_TIMEOUT, stable_time=STABLE_TIME)
+            if stable:
+                print("[~] Calendar stable after relogin")
+            else:
+                print("[~] Calendar stability timeout, proceeding anyway")
+
+            print("[+] Navigation to booking page completed")
             return True
         except Exception as e:
             logger.error(f"Error during browser restart/relogin: {e}")
