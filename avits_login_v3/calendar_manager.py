@@ -481,7 +481,7 @@ class CalendarManager:
                 time.sleep(0.2)
                 day_cell.click()
                 logger.info(f"UI selected green date: {date_str}")
-                time.sleep(1)
+                time.sleep(0.2)
                 return True
             except TimeoutException:
                 green_dates = self.get_available_green_dates()
