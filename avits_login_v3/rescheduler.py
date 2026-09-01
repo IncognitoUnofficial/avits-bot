@@ -1,4 +1,4 @@
-# rescheduler.py – optimised BEFORE, fast‑track booking, dynamic waits, skip navigation if already on reschedule page
+# rescheduler.py – reschedule path, with simplified calendar logic (no month navigation inside range, no navigation before range)
 import logging
 import time
 from typing import Dict, Any, Optional, List, Tuple
@@ -20,9 +20,9 @@ from .config import load_config
 logger = logging.getLogger(__name__)
 
 # ---- TIMING CONSTANTS ----
-STABILITY_TIMEOUT = 1.5      # seconds – how long to wait for calendar to stabilise
+STABILITY_TIMEOUT = 1.3    # seconds – how long to wait for calendar to stabilise
 STABLE_TIME = 0.5            # seconds – required unchanged state duration
-NAVIGATION_TIMEOUT = 2.0     # seconds – single attempt for BEFORE navigation
+NAVIGATION_TIMEOUT = 2.0     # seconds – single attempt for BEFORE navigation (now unused)
 # -------------------------
 
 class Rescheduler:
@@ -111,7 +111,7 @@ class Rescheduler:
         else:
             print("[~] Initial stability timeout, proceeding anyway")
 
-        # ---- Polling loop ----
+        # ---- Polling loop (simplified month logic) ----
         polls = 0
         while polls < self.max_polls:
             polls += 1
@@ -166,55 +166,28 @@ class Rescheduler:
                 continue
 
             elif cur_year < start_year or (cur_year == start_year and cur_month < start_month):
-                # BEFORE range: attempt to navigate to start month once (2s timeout)
-                print("   🔄 Current month is BEFORE target range – attempting to navigate to start month (1 attempt only, 2s timeout)...")
-                start_year, start_month = target_months[0]
-                if self.calendar.navigator.navigate_to(start_year, start_month, overall_timeout=NAVIGATION_TIMEOUT):
-                    print("   ✅ Successfully navigated to start month, continuing scan...")
-                    # Now we are on the start month; fall through to scanning
-                else:
-                    print("   ❌ Could not navigate to start month – refreshing...")
-                    self.calendar.refresh_calendar(self.location)
-                    self.calendar.wait_for_calendar_stable(timeout=STABILITY_TIMEOUT, stable_time=STABLE_TIME)
-                    continue
+                # BEFORE range: Do NOT attempt to navigate. Just refresh and wait for the next poll.
+                print("   🔄 Current month is BEFORE target range – refreshing...")
+                self.calendar.refresh_calendar(self.location)
+                self.calendar.wait_for_calendar_stable(timeout=STABILITY_TIMEOUT, stable_time=STABLE_TIME)
+                continue
 
-            # ---- NOW WE ARE INSIDE THE RANGE – SCAN TARGET MONTHS ----
-            print("   🔍 Scanning target months...")
-
-            # Build list of months to scan: start with current month if inside
-            try:
-                idx = target_months.index((cur_year, cur_month))
-                months_to_scan = target_months[idx:] + target_months[:idx]
-                print(f"      Current month is inside range – scanning from current month first")
-            except ValueError:
-                months_to_scan = target_months
+            # ---- NOW WE ARE INSIDE THE RANGE – CHECK ONLY THE CURRENTLY DISPLAYED MONTH ----
+            print("   🔍 Checking current month for green dates...")
 
             target_date = None
-            for year, month in months_to_scan:
-                print(f"      📆 Checking {year}-{month:02d}...")
-                if (year, month) != (cur_year, cur_month):
-                    try:
-                        if not self.calendar.navigate_to_month(year, month):
-                            print(f"      ⚠️ Could not navigate to {year}-{month:02d}, skipping")
-                            continue
-                    except Exception as e:
-                        print(f"      ⚠️ Navigation error: {e}, skipping")
-                        continue
+            # REUSE the already fetched green dates instead of calling get_available_green_dates again
+            if current_green_dates:
+                print(f"      Found {len(current_green_dates)} green dates: {current_green_dates[:5]}...")
+                for d in current_green_dates:
+                    if self.date_range["from"] <= d <= self.date_range["to"]:
+                        target_date = d
+                        print(f"      ✅ Found target date: {target_date}")
+                        break
+            else:
+                print("      No green dates in current month")
 
-                green_dates = self.calendar.get_available_green_dates(stable_time=STABLE_TIME)
-                if green_dates:
-                    print(f"      Found {len(green_dates)} green dates: {green_dates[:5]}...")
-                    for d in green_dates:
-                        if self.date_range["from"] <= d <= self.date_range["to"]:
-                            target_date = d
-                            print(f"      ✅ Found target date: {target_date}")
-                            break
-                else:
-                    print(f"      No green dates")
-                if target_date:
-                    break
-
-            # ---- FAST‑TRACK BOOKING ATTEMPT ----
+            # ---- FAST‑TRACK BOOKING ATTEMPT (if target found) ----
             if target_date:
                 print(f"\n⚡ Attempting fast booking for {target_date}...")
                 booking_result = self._attempt_booking(target_date)
@@ -229,7 +202,7 @@ class Rescheduler:
                     print(f"   ❌ Booking attempt failed: {error}")
                     print("   🔄 Will refresh and continue polling...")
             else:
-                print("   ❌ No green dates in target months")
+                print("   ❌ No valid green dates in current month")
 
             # ---- REFRESH AND WAIT FOR STABILITY ----
             if polls < self.max_polls:
@@ -241,7 +214,7 @@ class Rescheduler:
         return {"success": False, "error": "Max polls reached"}
 
     # ------------------------------------------------------------------
-    # FAST‑TRACK BOOKING ATTEMPT
+    # FAST‑TRACK BOOKING ATTEMPT (unchanged from your original)
     # ------------------------------------------------------------------
     def _attempt_booking(self, target_date: str) -> Dict[str, Any]:
         """
@@ -290,7 +263,7 @@ class Rescheduler:
             return {"success": False, "error": f"Booking executor exception: {e}"}
 
     # ------------------------------------------------------------------
-    # Helper methods
+    # Helper methods (unchanged)
     # ------------------------------------------------------------------
     def _is_logged_out(self) -> bool:
         try:
