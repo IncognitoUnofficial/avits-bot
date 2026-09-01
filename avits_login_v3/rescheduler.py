@@ -236,7 +236,7 @@ class Rescheduler:
         return {"success": False, "error": "Max polls reached"}
 
     # ------------------------------------------------------------------
-    # FAST‑TRACK BOOKING ATTEMPT
+    # FAST‑TRACK BOOKING ATTEMPT (UPDATED)
     # ------------------------------------------------------------------
     def _attempt_booking(self, target_date: str) -> Dict[str, Any]:
         """
@@ -246,15 +246,46 @@ class Rescheduler:
         if not self.calendar.select_date_ui(target_date):
             return {"success": False, "error": "Could not select date (maybe not clickable?)"}
 
+        # ---- TIMEOUT INCREASED TO 6 SECONDS ----
+        container = None
+        # Primary selector – first attempt (as original, but with longer timeout)
         try:
-            container = WebDriverWait(self.driver, timeout=3, poll_frequency=0.1).until(
+            container = WebDriverWait(self.driver, timeout=6, poll_frequency=0.2).until(
                 EC.presence_of_element_located((By.CSS_SELECTOR, ".booking-time-buttons.slot_calender"))
             )
         except TimeoutException:
-            return {"success": False, "error": "Time slots did not appear within 3 seconds"}
+            # ---- Fallback selectors (if primary fails) ----
+            fallback_selectors = [
+                ".booking-time-buttons",
+                ".slot_calender",
+                "div.booking-time-buttons",
+                "div[class*='slot_calender']",
+                "//div[contains(@class, 'booking-time-buttons')]"
+            ]
+            for selector in fallback_selectors:
+                try:
+                    if selector.startswith("//"):
+                        container = WebDriverWait(self.driver, timeout=4, poll_frequency=0.2).until(
+                            EC.presence_of_element_located((By.XPATH, selector))
+                        )
+                    else:
+                        container = WebDriverWait(self.driver, timeout=4, poll_frequency=0.2).until(
+                            EC.presence_of_element_located((By.CSS_SELECTOR, selector))
+                        )
+                    if container:
+                        break
+                except:
+                    continue
 
+        if not container:
+            return {"success": False, "error": "Time slots did not appear within timeout"}
+
+        # ---- GET TIME BUTTONS (primary: green-button, fallback: any button) ----
         try:
             time_buttons = container.find_elements(By.CSS_SELECTOR, "button.green-button")
+            # If no green-button, fallback to any button in the container
+            if not time_buttons:
+                time_buttons = container.find_elements(By.TAG_NAME, "button")
             visible_enabled = [btn for btn in time_buttons if btn.is_displayed() and btn.is_enabled()]
             if not visible_enabled:
                 return {"success": False, "error": "No visible/enabled time slots"}
@@ -264,11 +295,13 @@ class Rescheduler:
         except Exception as e:
             return {"success": False, "error": f"Error reading time slots: {e}"}
 
+        # ---- CLICK THE SLOT ----
         try:
             visible_enabled[0].click()
         except Exception as e:
             return {"success": False, "error": f"Could not click time slot: {e}"}
 
+        # ---- DELEGATE TO BOOKING EXECUTOR ----
         try:
             result = self.executor.book_appointment(target_date, selected_time, skip_time_selection=True)
             if result.get("success"):

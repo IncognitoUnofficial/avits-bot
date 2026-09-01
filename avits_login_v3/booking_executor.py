@@ -1,4 +1,4 @@
-# booking_executor.py – fast‑track optimised
+# booking_executor.py – fast‑track optimised with fallback selectors & increased timeout
 import logging
 import time
 from typing import Dict, Any, Optional
@@ -51,17 +51,31 @@ class BookingExecutor:
                     logger.warning(f"Could not select time slot: {e}")
                     return {"success": False, "error": f"Time slot selection failed: {e}"}
 
-            # Step 2: Click "Book POST Appointment" button
-            btn_xpath = "//button[contains(@class, 'lrg-common-buttton') and contains(@class, 'light-lanvander-button') and normalize-space(text())='Book POST Appointment']"
+            # Step 2: Click "Book POST Appointment" button with fallback selectors
+            btn_xpaths = [
+                "//button[contains(@class, 'lrg-common-buttton') and contains(@class, 'light-lanvander-button') and normalize-space(text())='Book POST Appointment']",
+                "//button[contains(@class, 'lrg-common-button') and contains(@class, 'light-lavender-button') and normalize-space(text())='Book POST Appointment']",
+                "//button[contains(text(), 'Book POST Appointment')]",
+                "//button[contains(text(), 'Book Post Appointment')]",
+                "//button[contains(text(), 'Book') and contains(text(), 'Appointment')]",
+                "//span[contains(text(), 'Book POST Appointment')]/..",
+                "//span[contains(text(), 'Book Post Appointment')]/..",
+            ]
 
-            # Wait only 3 seconds for the button to be clickable
-            wait = WebDriverWait(self.driver, timeout=3, poll_frequency=0.1)
-            book_btn = wait.until(
-                EC.element_to_be_clickable((By.XPATH, btn_xpath))
-            )
-            if book_btn.get_attribute("disabled") is not None:
-                logger.warning("Book button is disabled")
-                return {"success": False, "error": "Book button disabled"}
+            book_btn = None
+            for xpath in btn_xpaths:
+                try:
+                    book_btn = WebDriverWait(self.driver, timeout=3, poll_frequency=0.1).until(
+                        EC.element_to_be_clickable((By.XPATH, xpath))
+                    )
+                    if book_btn:
+                        logger.info(f"Found book button with selector: {xpath}")
+                        break
+                except:
+                    continue
+
+            if not book_btn:
+                return {"success": False, "error": "Could not find Book POST Appointment button"}
 
             # Step 3: Clear network logs and click
             for endpoint in self.possible_endpoints:
@@ -72,16 +86,15 @@ class BookingExecutor:
                     pass
 
             self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", book_btn)
-            # Minimal sleep for UI reaction (0.05 sec)
             time.sleep(0.05)
             book_btn.click()
             logger.info("Clicked 'Book POST Appointment' – waiting for response...")
 
-            # Step 4: Listen for booking confirmation from any endpoint (timeout 4 sec)
+            # Step 4: Listen for booking confirmation from any endpoint (timeout 6 sec)
             for endpoint in self.possible_endpoints:
                 try:
                     listener = NetworkListener(self.driver, endpoint)
-                    tokens, status = listener.wait_for_tokens(timeout=4)
+                    tokens, status = listener.wait_for_tokens(timeout=6)  # increased from 4 to 6
                     if status == 200:
                         logger.info(f"✅ Booking confirmed via {endpoint}")
                         return {"success": True, "date": date_str, "time": time_slot, "endpoint": endpoint}
@@ -107,7 +120,6 @@ class BookingExecutor:
             self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", logout_btn)
             logout_btn.click()
             logger.info("Logged out")
-            # Minimal wait for logout to complete
             time.sleep(0.5)
             return True
         except Exception as e:
