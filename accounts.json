@@ -61,8 +61,19 @@
             "password": "Wiseman@0276",
             "location": "Accra",
             "date_range": {
-                "from": "2026-09-01",
-                "to": "2026-11-30"
+                "from": "2027-01-01",
+                "to": "2027-01-31"
+            },
+            "active": true
+        },
+        {
+            "id": "acc_7",
+            "email": "nomannisar094@gmail.com",
+            "password": "Nomkinza@786",
+            "location": "Accra",
+            "date_range": {
+                "from": "2027-01-01",
+                "to": "2027-01-31"
             },
             "active": true
         }

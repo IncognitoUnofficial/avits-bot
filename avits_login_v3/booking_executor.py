@@ -1,4 +1,4 @@
-# booking_executor.py – fast‑track optimised with fallback selectors & increased timeout
+# booking_executor.py – fast‑track for new appointment path (Select POST and Proceed)
 import logging
 import time
 from typing import Dict, Any, Optional
@@ -31,7 +31,7 @@ class BookingExecutor:
         skip_time_selection: bool = True
     ) -> Dict[str, Any]:
         """
-        Finalise booking.
+        Finalise booking for the new appointment path.
 
         If skip_time_selection is True (default), it assumes the time slot
         is already selected/clicked. Otherwise, it will attempt to select it.
@@ -51,15 +51,11 @@ class BookingExecutor:
                     logger.warning(f"Could not select time slot: {e}")
                     return {"success": False, "error": f"Time slot selection failed: {e}"}
 
-            # Step 2: Click "Book POST Appointment" button with fallback selectors
+            # Step 2: Click "Select POST and Proceed" button (new appointment path)
             btn_xpaths = [
-                "//button[contains(@class, 'lrg-common-buttton') and contains(@class, 'light-lanvander-button') and normalize-space(text())='Book POST Appointment']",
-                "//button[contains(@class, 'lrg-common-button') and contains(@class, 'light-lavender-button') and normalize-space(text())='Book POST Appointment']",
-                "//button[contains(text(), 'Book POST Appointment')]",
-                "//button[contains(text(), 'Book Post Appointment')]",
-                "//button[contains(text(), 'Book') and contains(text(), 'Appointment')]",
-                "//span[contains(text(), 'Book POST Appointment')]/..",
-                "//span[contains(text(), 'Book Post Appointment')]/..",
+                "//button[contains(@class, 'lrg-common-buttton') and contains(@class, 'light-lanvander-button') and normalize-space(text())='Select POST and Proceed']",
+                "//button[contains(text(), 'Select POST and Proceed')]",
+                "//span[contains(text(), 'Select POST and Proceed')]/..",
             ]
 
             book_btn = None
@@ -69,13 +65,13 @@ class BookingExecutor:
                         EC.element_to_be_clickable((By.XPATH, xpath))
                     )
                     if book_btn:
-                        logger.info(f"Found book button with selector: {xpath}")
+                        logger.info(f"Found confirmation button with selector: {xpath}")
                         break
                 except:
                     continue
 
             if not book_btn:
-                return {"success": False, "error": "Could not find Book POST Appointment button"}
+                return {"success": False, "error": "Could not find 'Select POST and Proceed' button"}
 
             # Step 3: Clear network logs and click
             for endpoint in self.possible_endpoints:
@@ -88,13 +84,13 @@ class BookingExecutor:
             self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", book_btn)
             time.sleep(0.05)
             book_btn.click()
-            logger.info("Clicked 'Book POST Appointment' – waiting for response...")
+            logger.info("Clicked 'Select POST and Proceed' – waiting for response...")
 
             # Step 4: Listen for booking confirmation from any endpoint (timeout 6 sec)
             for endpoint in self.possible_endpoints:
                 try:
                     listener = NetworkListener(self.driver, endpoint)
-                    tokens, status = listener.wait_for_tokens(timeout=6)  # increased from 4 to 6
+                    tokens, status = listener.wait_for_tokens(timeout=6)
                     if status == 200:
                         logger.info(f"✅ Booking confirmed via {endpoint}")
                         return {"success": True, "date": date_str, "time": time_slot, "endpoint": endpoint}
