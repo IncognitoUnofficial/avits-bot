@@ -1,4 +1,4 @@
-# rescheduler.py – reschedule path, with simplified calendar logic (no month navigation inside range, no navigation before range)
+# rescheduler.py – reschedule path, simplified calendar logic, with retry for slow‑load green dates
 import logging
 import time
 from typing import Dict, Any, Optional, List, Tuple
@@ -20,9 +20,9 @@ from .config import load_config
 logger = logging.getLogger(__name__)
 
 # ---- TIMING CONSTANTS ----
-STABILITY_TIMEOUT = 1.3    # seconds – how long to wait for calendar to stabilise
-STABLE_TIME = 0.5            # seconds – required unchanged state duration
-NAVIGATION_TIMEOUT = 2.0     # seconds – single attempt for BEFORE navigation (now unused)
+STABILITY_TIMEOUT = 1.5   # seconds – how long to wait for calendar to stabilise
+STABLE_TIME = 0.3         # seconds – required unchanged state duration
+NAVIGATION_TIMEOUT = 2.0  # seconds – single attempt for BEFORE navigation (now unused)
 # -------------------------
 
 class Rescheduler:
@@ -111,7 +111,7 @@ class Rescheduler:
         else:
             print("[~] Initial stability timeout, proceeding anyway")
 
-        # ---- Polling loop (simplified month logic) ----
+        # ---- Polling loop (simplified month logic + retry for slow green dates) ----
         polls = 0
         while polls < self.max_polls:
             polls += 1
@@ -151,12 +151,30 @@ class Rescheduler:
             start_year, start_month = start_dt.year, start_dt.month
             end_year, end_month = end_dt.year, end_dt.month
 
-            # ---- READ GREEN DATES (always) ----
+            # ---- READ GREEN DATES (first attempt) ----
             current_green_dates = self.calendar.get_available_green_dates(stable_time=STABLE_TIME)
             if current_green_dates:
                 print(f"   📅 Current month green dates: {current_green_dates}")
             else:
                 print("   📅 Current month has no green dates")
+
+            # ---- RETRY IF INSIDE RANGE AND GREEN DATES ARE EMPTY (slow AJAX) ----
+            # We need to check if the current month is inside the range before we decide to retry.
+            # We'll compute a boolean variable.
+            month_inside_range = (
+                (cur_year > start_year or (cur_year == start_year and cur_month >= start_month)) and
+                (cur_year < end_year or (cur_year == end_year and cur_month <= end_month))
+            )
+
+            if month_inside_range and not current_green_dates:
+                print("   [~] Green dates not loaded yet – waiting 0.2s for AJAX...")
+                time.sleep(0.2)
+                # Second attempt
+                current_green_dates = self.calendar.get_available_green_dates(stable_time=STABLE_TIME)
+                if current_green_dates:
+                    print(f"   📅 (retry) Current month green dates: {current_green_dates}")
+                else:
+                    print("   📅 (retry) Still no green dates in current month")
 
             # ---- EARLY CHECKS (before/after) ----
             if cur_year > end_year or (cur_year == end_year and cur_month > end_month):
@@ -176,7 +194,7 @@ class Rescheduler:
             print("   🔍 Checking current month for green dates...")
 
             target_date = None
-            # REUSE the already fetched green dates instead of calling get_available_green_dates again
+            # REUSE the already fetched green dates (possibly after retry)
             if current_green_dates:
                 print(f"      Found {len(current_green_dates)} green dates: {current_green_dates[:5]}...")
                 for d in current_green_dates:
